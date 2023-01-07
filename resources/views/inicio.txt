@@ -1,0 +1,425 @@
+@extends('layout.base')
+@section('page-info')
+<style>
+.carruselc {
+    float:left;
+    width:100%;
+    overflow:hidden;
+    height:380px;
+    position:relative;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+ 
+.carruselc .left-arrow {
+    position:absolute;
+    left:10px;
+    z-index:1;
+    top:50%;
+    margin-top:-9px;
+}
+ 
+.carruselc .right-arrow {
+    position:absolute;
+    right:10px;
+    z-index:1;
+    top:50%;
+    margin-top:-9px;
+}
+ 
+#carruselp {
+    width:4000px;
+    left:0px;
+    position:absolute;
+    z-index:0;
+}
+ 
+#carruselp>div {
+    float: left;
+    height: 320px;
+    margin-right: 5px;
+    width: 220px;
+    text-align:center;
+}
+ 
+#carruselp img { 
+    cursor:pointer;
+    width: 160px;
+    height: 100px;
+    margin-top:10px;
+}
+ 
+.product {
+    border:#CCCCCC 1px solid;
+    position: relative;
+}
+.productname{
+   color:black;
+   text-decoration:none;
+}
+.productname:hover{
+   color:red; 
+}
+
+.btnscartlist {
+    position: relative;
+}
+.btncart {
+    background-color: white;
+    position: absolute;
+   bottom: 20px;
+   left: 55px;
+   color: black;
+   border: none;
+   height: 30px;
+   border: 1px solid red;
+   border-radius: 10px;
+}
+.btncart:hover {
+   color: white;
+   background-color: red;
+}
+.btnlist {
+   position: absolute;
+   bottom: 20px;
+   left: 20px;
+   color: black;
+   height: 30px;
+   width: 30px;
+   border: 1px solid red;
+   border-radius: 5px; 
+}
+
+.btnlist:hover {
+   color: white; 
+   background-color: red;
+}
+.btnlist i {
+   position: absolute; 
+   left: 15%;
+   top: 15%;
+   font-size: 20px;
+ 
+}
+
+#btncategoria {
+    color: black;
+    background-color: #fd0000cc; 
+    border-radius: 15px;
+    border: none;
+    height: 30px;
+}
+#price{
+    color: red;
+    font-weight: bold;
+    margin-top: 50px;
+    font-size: 15px;
+}
+ 
+</style>
+@endsection
+@section('content')
+
+@php $contc=0; @endphp
+@foreach($categorias as $cat)
+<div id="carruselc" class="carruselc">
+    <a href="#" class="left-arrow" id="left_arrow_{{$contc}}" data-cont="{{$contc}}"><img src="carrusel/left-arrow.png" /></a>
+    <a href="#" class="right-arrow" id="right_arrow_{{$contc}}" data-cont="{{$contc}}"><img src="carrusel/right-arrow.png" /></a>
+    <button id="btncategoria">  <b> {{$cat->nombre}} </b> </button> 
+    <hr>
+    <div class="carrusel_{{$contc}}" id="carruselp">
+    @php $cont=0; @endphp
+    @foreach($productos as $pro)
+    @if($pro->idcategoria == $cat->idcategoria)
+        <div class="product" id="product_{{$contc}}_{{$cont}}">
+            <img src="images/{{$pro->image_path}}" /> <br> <br>
+            <a href="#" class="productname">  <h5>{{ $pro->name }}</h5>  </a>  
+            <span id="price">   S/{{$pro->price}}  </span>
+             
+            <form action="{{ route('cart.store') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" value="{{ $pro->id }}" id="id" name="id">
+                            <input type="hidden" value="{{ $pro->name }}" id="name" name="name">
+                            <input type="hidden" value="{{ $pro->price }}" id="price" name="price">
+                            <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
+                            <input type="hidden" value="{{ $pro->slug }}" id="slug" name="slug">
+                            <input type="hidden" value="1" id="quantity" name="quantity">
+                             
+                                 
+                                
+                                    <a href="#"   class="btnlist"><i class="fa-solid fa-heart"></i></a>
+                                    <button class="btncart"   title="add to cart">
+                                        <i class="fa fa-shopping-cart"></i> AÑADIR AL CARRITO  
+                                    </button>
+                                
+                            
+                        </form>
+        </div>
+    @php $cont=$cont+1; @endphp 
+    @endif
+    @endforeach         
+    </div>
+    
+</div> 
+@php $contc=$contc+1; @endphp 
+@endforeach  
+
+
+@endsection
+
+
+
+
+@section('script')
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+ 
+<script>
+@extends('layout.base')
+@section('page-info')
+<style>
+.carruselc {
+    float:left;
+    width:100%;
+    overflow:hidden;
+    height:380px;
+    position:relative;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+ 
+.carruselc .left-arrow {
+    position:absolute;
+    left:10px;
+    z-index:1;
+    top:50%;
+    margin-top:-9px;
+}
+ 
+.carruselc .right-arrow {
+    position:absolute;
+    right:10px;
+    z-index:1;
+    top:50%;
+    margin-top:-9px;
+}
+ 
+#carruselp {
+    width:4000px;
+    left:0px;
+    position:absolute;
+    z-index:0;
+}
+ 
+#carruselp>div {
+    float: left;
+    height: 320px;
+    margin-right: 5px;
+    width: 220px;
+    text-align:center;
+}
+ 
+#carruselp img { 
+    cursor:pointer;
+    width: 160px;
+    height: 100px;
+    margin-top:10px;
+}
+ 
+.product {
+    border:#CCCCCC 1px solid;
+    position: relative;
+}
+.productname{
+   color:black;
+   text-decoration:none;
+}
+.productname:hover{
+   color:red; 
+}
+
+.btnscartlist {
+    position: relative;
+}
+.btncart {
+    background-color: white;
+    position: absolute;
+   bottom: 20px;
+   left: 55px;
+   color: black;
+   border: none;
+   height: 30px;
+   border: 1px solid red;
+   border-radius: 10px;
+}
+.btncart:hover {
+   color: white;
+   background-color: red;
+}
+.btnlist {
+   position: absolute;
+   bottom: 20px;
+   left: 20px;
+   color: black;
+   height: 30px;
+   width: 30px;
+   border: 1px solid red;
+   border-radius: 5px; 
+}
+
+.btnlist:hover {
+   color: white; 
+   background-color: red;
+}
+.btnlist i {
+   position: absolute; 
+   left: 15%;
+   top: 15%;
+   font-size: 20px;
+ 
+}
+
+#btncategoria {
+    color: white;
+    background-color: #ff4040; 
+    border-radius: 15px;
+    border: none;
+    height: 30px;
+}
+#price{
+    color: #191919;
+    font-weight: bold;
+    margin-top: 50px;
+    font-size: 15px;
+}
+ 
+</style>
+@endsection
+@section('content')
+
+@php $contc=0; @endphp
+@foreach($categorias as $cat)
+<div id="carruselc" class="carruselc">
+    <a href="#" class="left-arrow" id="left_arrow_{{$cat->idcategoria}}" data-cont="{{$contc}}"><img src="carrusel/left-arrow.png" /></a>
+    <a href="#" class="right-arrow" id="right_arrow_{{$cat->idcategoria}}" data-cont="{{$contc}}"><img src="carrusel/right-arrow.png" /></a>
+    <button id="btncategoria">  <b> {{$cat->nombre}} </b> </button> 
+    <hr>
+    <div class="carrusel_{{$contc}}" id="carruselp">
+    @php $cont=0; @endphp
+    @foreach($productos as $pro)
+    @if($pro->idcategoria == $cat->idcategoria)
+        <div class="product" id="product_{{$contc}}_{{$cont}}">
+            <img src="images/{{$pro->image_path}}" /> <br> <br>
+            <a href="#" class="productname">  <h5>{{ $pro->name }}</h5>  </a>  
+            <span id="price">   S/{{$pro->price}}  </span>
+             
+            <form action="{{ route('cart.store') }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" value="{{ $pro->id }}" id="id" name="id">
+                            <input type="hidden" value="{{ $pro->name }}" id="name" name="name">
+                            <input type="hidden" value="{{ $pro->price }}" id="price" name="price">
+                            <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
+                            <input type="hidden" value="{{ $pro->slug }}" id="slug" name="slug">
+                            <input type="hidden" value="1" id="quantity" name="quantity">
+                             
+                                 
+                                
+                                    <a href="#"   class="btnlist"><i class="fa-solid fa-heart"></i></a>
+                                    <button class="btncart"   title="add to cart">
+                                        <i class="fa fa-shopping-cart"></i> AÑADIR AL CARRITO  
+                                    </button>
+                                
+                            
+                        </form>
+        </div>
+    @php $cont=$cont+1; @endphp 
+    @endif
+    @endforeach         
+    </div>
+    
+</div> 
+@php $contc=$contc+1; @endphp 
+@endforeach  
+
+
+@endsection
+
+
+
+
+@section('script')
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+ 
+<script>
+var current = 0;
+var imagenes = new Array();
+/*var categorias = @json($categorias);
+var productos = @json($productos);
+
+    for(var j = 0; j < categorias.length; j++){
+        $contc=0;
+        for(var i = 0; i < productos.length; i++){
+            if(productos[i].idcategoria == categorias[j].idcategoria){
+                $contc=$contc+1;
+            }  
+        }
+        if ($contc <= 5) {
+                console.log($contc);
+                $('#right_arrow_'+categorias[j].idcategoria).css('display', 'none');
+                $('#left_arrow_'+categorias[j].idcategoria).css('display', 'none');
+            }
+    }*/
+
+$(document).ready(function() {
+    var numImages = 6;
+    if (numImages <= 3) {
+        $('.right-arrow').css('display', 'none');
+        $('.left-arrow').css('display', 'none');
+    }
+ 
+    $('.left-arrow').on('click',function() {
+        $cont = $(this).data("cont");
+        if (current > 0) {
+            current = current - 1;
+        } else {
+            current = numImages - 3;
+        }
+ 
+        $('.carrusel_'+$cont).animate({"left": -($('#product_'+$cont+'_'+current).position().left)}, 600);
+ 
+        return false;
+    });
+ 
+    $('.left-arrow').on('hover', function() {
+        $cont = $(this).data("cont");
+        $('#right_arrow_'+$cont).css('opacity','0.5');
+        //$(this).css('opacity','0.5');
+    }, function() {
+        $(this).css('opacity','1');
+    });
+ 
+    $('.right-arrow').on('hover', function() {
+        $cont = $(this).data("cont");
+        $('#right_arrow_'+$cont).css('opacity','0.5');
+        //$(this).css('opacity','0.5');
+       
+    }, function() {
+        $(this).css('opacity','1');
+    });
+ 
+    $('.right-arrow').on('click', function() {
+        $cont = $(this).data("cont");
+        if (numImages > current + 3) {
+            current = current+1;
+        } else {
+            current = 0;
+        }
+ 
+        $('.carrusel_'+$cont).animate({"left": -($('#product_'+$cont+'_'+current).position().left)}, 600);
+ 
+        return false;
+    }); 
+
+    
+ });
+</script>
+@endsection

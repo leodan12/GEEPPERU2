@@ -1,0 +1,366 @@
+#menu ul {
+    list-style: none;
+    padding: 0px;
+    background: -webkit-linear-gradient(red, black);
+    background: -moz-linear-gradient(red, black);
+    background: -o-linear-gradient(red, black);
+    background: linear-gradient(red, black);
+    border: 1px solid #353535;
+}
+
+#menu {
+    height: 20px;
+}
+/* items del menu */
+
+#menu ul li ul li {
+    background: white;
+}
+
+#menu ul li ul li:hover {
+    background:#ff7673;
+}
+
+/* enlaces del menu */
+
+#menu ul a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 10px;
+    padding: 0px;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#menu ul li ul a {
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 200px;
+    font-size: 10px;
+    padding: 6px;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* items del menu */
+
+#menu ul li {
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0px;
+}
+
+/* efecto al pasar el ratón por los items del menu */
+
+#menu ul li:hover {
+    /*  background: rgb(248, 74, 74);*/
+    color: #ff7673;
+}
+
+#menu ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #eee;
+    padding: 0px;
+    z-index: 1;
+}
+
+/* items del menu desplegable */
+
+#menu ul ul li {
+    float: none;
+    width: 100px;
+}
+
+/* enlaces de los items del menu desplegable */
+
+#menu ul ul a {
+    line-height: 120%;
+    padding: 20px 15px;
+}
+
+/* items del menu desplegable al pasar el ratón */
+
+#menu ul li:hover > ul {
+    display: block;
+}
+
+/*  -------------------estilos para el navegador 2-------------------------------*/
+#menu3 ul {
+    list-style: none;
+    padding: 35px;
+    background: -webkit-linear-gradient(black, red);
+    background: -moz-linear-gradient(black, red);
+    background: -o-linear-gradient(black, red);
+    background: linear-gradient(black, red);
+    border: 1px solid #353535; 
+}
+
+#menu3 {
+    height: 100px;
+}
+
+#menu3 img {
+    position: relative;
+    width: 160px;
+    height: 70px;
+    padding: 2px;
+    float: left;
+}
+/* items del menu */
+
+#menu3 ul li ul li {
+    background: white;
+     
+}
+
+#menu3 ul li ul li:hover {
+    /*background: rgb(255, 197, 197);*/
+    background: #ff7673;
+    color: #ffffff;
+    
+}
+#menu3 ul li ul li:hover {
+    /*background: rgb(255, 197, 197);*/
+    background: #ff7673;
+    color: #ffffff;
+    
+}
+
+/* enlaces del menu */
+
+#menu3 ul a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 0px;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#menu3 ul li ul a {
+    display: block;
+    color: #000000; 
+    text-decoration: none;
+    font-weight: 200px;
+    font-size: 11px;
+    padding: 6px;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+ 
+/* items del menu */
+
+#menu3 ul li {
+    position: relative;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* efecto al pasar el ratón por los items del menu */
+
+ 
+
+#menu3 ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    background: #eee;
+    padding: 0px;
+    z-index: 1;
+}
+#menu3 ul ul ul{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 220px;
+    background: #eee;
+    padding: 0px;
+    z-index: 1;
+}
+
+/* items del menu desplegable */
+
+#menu3 ul ul li {
+    float: none;
+   /* width: 170px;*/
+}
+
+#optionmenu li{
+    width: 170px;
+}
+
+#optionmenucat li{
+    width: 220px;
+
+}
+#categorias  a{
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    font-weight: 200px;
+    font-size: 10px;
+    padding: 6px;
+    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+}
+
+    /* enlaces de los items del menu desplegable */
+
+#menu3 ul ul a {
+    line-height: 120%;
+    padding: 20px 15px;
+}
+
+/* items del menu desplegable al pasar el ratón */
+
+#menu3 ul li:hover > ul {
+    display: block;
+}
+/*--------------------para ocultar algunos elementos cuando se hace pequeño la pantalla--------------------*/
+ 
+ 
+@media screen and (max-width: 780px) {
+    #contact {
+        display: none;
+    }
+}
+@media screen and (max-width: 670px) {
+    #nosotrosN {
+        display: none;
+    }
+}
+@media screen and (max-width: 580px) {
+    #serviciosN {
+        display: none;
+    }
+    #telefono {
+        display: none;
+    }
+    #direccion {
+        display: none;
+    }
+}
+@media screen and (max-width: 500px) {
+    #inicioN {
+        display: none;
+    }
+}
+#cart {
+    width: 400px; 
+    padding: 0px; 
+    border-color: #e91f1ff5
+}
+
+#cart li {
+    width: 400px;
+    
+}
+
+/* ----------------------------------estilos de los principios------------------------------------*/
+#principios p {
+    font-size: 12px;
+}
+#principios h6 {
+    font-size: 15px;
+    font-weight: bold;
+}
+#principios img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+/* ----------------------------------estilos de los servicios------------------------------------*/
+#servicios {
+    background: -webkit-linear-gradient(
+        rgba(0, 0, 0, 0.452),
+        rgba(253, 0, 0, 0.452)
+    );
+    background: -moz-linear-gradient(
+        rgba(0, 0, 0, 0.452),
+        rgba(253, 0, 0, 0.452)
+    );
+    background: -o-linear-gradient(
+        rgba(0, 0, 0, 0.452),
+        rgba(253, 0, 0, 0.452)
+    );
+    background: linear-gradient(rgba(0, 0, 0, 0.452), rgba(253, 0, 0, 0.452));
+    color: black;
+}
+#servicios p {
+    font-size: 12px;
+}
+
+#servicios h6 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#servicios i {
+    font-size: 50px;
+}
+
+#servicios ul {
+    color: #000000;
+}
+#servicios ul p {
+    color: #000000;
+}
+#servicios ul:hover {
+    color: #ff0404;
+}
+
+#nosotros {
+    background: -webkit-linear-gradient(
+        rgba(253, 0, 0, 0.452),
+        rgba(0, 0, 0, 0.452)
+    );
+    background: -moz-linear-gradient(
+        rgba(253, 0, 0, 0.452),
+        rgba(0, 0, 0, 0.452)
+    );
+    background: -o-linear-gradient(
+        rgba(253, 0, 0, 0.452),
+        rgba(0, 0, 0, 0.452)
+    );
+    background: linear-gradient(rgba(253, 0, 0, 0.452), rgba(0, 0, 0, 0.452));
+    color: black;
+}
+#nosotros h6 {
+    font-size: 14px;
+    font-weight: bold;
+}
+#nosotros p {
+    font-size: 14px;
+}
+
+#nosotros ul a li {
+    list-style: none;
+    font-size: 14px;
+}
+#nosotros ul a li:before {
+    content: "♦";
+}
+
+#nosotros ul a {
+    text-decoration: none;
+    color: #000000;
+}
+
+#nosotros ul a:hover {
+    color: #ff0000;
+}
