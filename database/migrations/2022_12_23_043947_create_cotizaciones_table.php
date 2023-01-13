@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('fecha');
             $table->string('nombre');
+            $table->string('descripcion');
             $table->string('documento');
             $table->double('descuento');
             $table->double('costototal');

@@ -49,6 +49,7 @@ class CotizacionesController extends Controller
              'nombre' => 'required',
              'documento' => 'required|string',
              'descuento' => 'required',
+             'descripcion' => 'required',
              'costototal' => 'required'
            
         ];
@@ -65,6 +66,7 @@ class CotizacionesController extends Controller
         $cotizacion->nombre = $request->nombre;
         $cotizacion->documento = $request->documento;
         $cotizacion->descuento = $request->descuento;
+        $cotizacion->descripcion = $request->descripcion;
         $cotizacion->costototal = $request->costototal; 
         $cotizacion->estado = "COTIZADO";
         $cotizacion->state = 1;
