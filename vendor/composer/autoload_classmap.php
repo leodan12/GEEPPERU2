@@ -26,6 +26,7 @@ return array(
     'App\\Http\\Controllers\\PrincipaleController' => $baseDir . '/app/Http/Controllers/PrincipaleController.php',
     'App\\Http\\Controllers\\RespuestasController' => $baseDir . '/app/Http/Controllers/RespuestasController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
+    'App\\Http\\Middleware\\AdminMiddleware' => $baseDir . '/app/Http/Middleware/AdminMiddleware.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => $baseDir . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',

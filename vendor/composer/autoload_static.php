@@ -576,6 +576,7 @@ class ComposerStaticInit0cfcf6866cb32cf35e9177a0f6145d5c
         'App\\Http\\Controllers\\PrincipaleController' => __DIR__ . '/../..' . '/app/Http/Controllers/PrincipaleController.php',
         'App\\Http\\Controllers\\RespuestasController' => __DIR__ . '/../..' . '/app/Http/Controllers/RespuestasController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminMiddleware.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
