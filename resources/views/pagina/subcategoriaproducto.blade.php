@@ -254,9 +254,9 @@
       </a>
       @if($pro->oferta == 1 && $pro->stock > 0)
       <span id="oldprice"> S/{{$pro->price}} </span> &nbsp;
-      <span id="price2"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+      <span id="price"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
       @else
-      <span id="oldprice2"> S/{{$pro->price}} </span>
+      <span id="price"> S/{{$pro->price}} </span>
       @endif
       <form action="{{ route('cart.store') }}" method="POST">
         {{ csrf_field() }}

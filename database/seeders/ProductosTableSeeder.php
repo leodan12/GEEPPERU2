@@ -111,7 +111,7 @@ class ProductosTableSeeder extends Seeder
             'image_path' => 'compu-i3.jpg'
         ]);
         Producto::create([
-            'name' => 'PC COMPLETA CORE i3 10th',
+            'name' => 'PC COMPLETA CORE i5 10th',
             'marca' => 'HP',
             'descripcion' => '24 pulgadas, LED Display, Resolución 1366 x 768',
             'price' => 2099.00,

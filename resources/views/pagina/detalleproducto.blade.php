@@ -246,10 +246,7 @@
   position: relative; /* permite posicionar los elementos hijos relativos al contenedor padre */
 }
 
-.imagen2 {
-  /* permite posicionar el contenedor secundario relativo al contenedor padre */
-   
-}
+ 
   .productoimg {
   transition: transform .2s;  
   transform: scale(1);  
@@ -277,8 +274,171 @@
    color: red; 
 }
  
+.disponible{
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+}
+.enstock{
+  font-size: 16px;
+  font-weight: bold;
+  color: #ed5e35;
+}
+.sinstock{
+  font-size: 16px;
+  font-weight: bold;
+  color: #ed5e35;
+}
 
+.inputcantidad{
+  width: 55px;
+  height:  30px;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #f0e5f1;
+  border: 1px solid gray;
+  bottom: 10px;
+  position: absolute;
+}
 
+.inputcant{
+  position: relative;
+}
+ 
+.btncart {
+  background-color: white;
+  position: absolute;
+  bottom: 10px;
+   left: 80px;
+   color: black;
+   border: none;
+   height: 30px;
+   border: 1px solid red;
+   border-radius: 10px;
+}
+.btncart:hover {
+   color: white;
+   background-color: #ff3936;
+}
+.btnlist {
+   position: absolute;
+   bottom: 10px;
+   left:250px;
+   color: black;
+   height: 30px;
+   width: 30px;
+   border: 1px solid red;
+   border-radius: 5px; 
+}
+
+.btnlist:hover {
+   color: white; 
+   background-color: #ff3936;
+}
+.btnlist i {
+   position: absolute; 
+   left: 15%;
+   top: 15%;
+   font-size: 20px;
+ 
+}
+ 
+#increment  {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  color: black; 
+  position: absolute;  
+  bottom: 25px;
+  width: 15px;
+  height: 15px;
+  left: 60px;
+  border: 1px solid gray; 
+}
+#increment:hover  {
+  color: white;
+  border: 1px solid red;  
+  background-color: red;
+}
+ 
+#decrement  {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  color: black; 
+  position: absolute;  
+  bottom: 10px;
+  left: 60px;
+  width: 15px;
+  height: 15px;
+  border: 1px solid gray;  
+}
+#decrement:hover  {
+  color: white;
+  border: 1px solid red;  
+  background-color: red;
+}
+
+input[type=number][name=quantity]::-webkit-inner-spin-button,
+input[type=number][name=quantity]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  color: red;
+}
+
+.midescripcion {
+    text-align: center;
+    width: 80%;
+    right: 0px;
+    margin-left: 10px;
+    float: right;
+    display: block;
+    margin-bottom: 50px;
+    border: #CCCCCC 1px solid;
+    }
+  .misdatos{
+    width: 100%;
+    display: inline-block; 
+     
+    align-items: center;
+  }
+  .descripcion{
+    width: 20%; 
+    display: inline-block;  
+    float: left;
+    flex-wrap: wrap; 
+     
+  }
+  .descripcion h5 {
+    font-size: 16px;
+  color: black; 
+  position: absolute; 
+  margin-left: 20px;
+}
+.especificaciones{
+    width: 75%;
+    display: inline-block;   
+  }
+  .especificacion{
+    width: 38%;
+    display: inline-block;  
+
+  }
+  .especificacion h5 {
+    font-size: 16px;
+    color: gray;  
+  }
+  .dato{
+    width: 58%;
+    display: inline-block; 
+    float: right;
+  }
+  .dato h5 {
+    font-size: 16px;
+    color: gray;  
+  }
+   
 </style>
 @endsection
 @section('content')
@@ -289,6 +449,7 @@
     <div class="rowmasvendidos">
       <h4>RELACIONADOS</h4>
       <hr>
+     
       @foreach($relacionados as $pro)
       <div class="colmasvendidos" style="text-align: center;">
         @if($pro->oferta == 1 && $pro->stock > 0)
@@ -309,6 +470,7 @@
         @endif
       </div>
       @endforeach
+     
     </div>
   </div>
 
@@ -335,18 +497,21 @@
    <br>
     <h5 class="disponible"> DISPONIBILIDAD:  &nbsp;
     @if($producto[0]->stock > 0)
-    <span class="precioprod" > EN STOCK </span>
+    <span class="enstock" > EN STOCK </span>
     @endif
     @if($producto[0]->stock == 0)
-    <span class=" "> SIN STOCK </span>
+    <span class="sinstock"> SIN STOCK </span>
     @endif
     </h5>
     <br>
-    <span class="precioprod" >  PRECIO: &nbsp;</span>
+    
       @if($producto[0]->oferta == 1 && $producto[0]->stock > 0)
-      <span id="oldprice"> S/{{$producto[0]->price}} </span> &nbsp;
+      <span class="disponible" >  PRECIO ANTES: &nbsp;</span>
+      <span id="oldprice"> S/{{$producto[0]->price}} </span> &nbsp; <br>
+      <span class="precioprod" >  PRECIO AHORA: &nbsp;</span>
       <span id="price2"> S/{{number_format($producto[0]->price - (($producto[0]->price*$producto[0]->porcentajedescuento)/100), 2);}} </span>
       @else
+      <span class="precioprod" >  PRECIO: &nbsp;</span>
       <span id="price"> S/{{$producto[0]->price}} </span>
       @endif
       <br><br>
@@ -359,6 +524,37 @@
       </h6>
       @endforeach
       </div>
+<br>
+      <div class="inputcant">
+        <form action="{{ route('cart.store') }}" method="POST">
+        {{ csrf_field() }}
+        <input type="hidden" value="{{ $pro->idproducto }}" id="id" name="id">
+        <input type="hidden" value="{{ $pro->name }}" id="name" name="name">
+        @if($pro->oferta == 1)
+        <input type="hidden" value="{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}}" id="price" name="price">
+        @endif
+        @if($pro->oferta == 0)
+        <input type="hidden" value="{{$pro->price}}" id="price" name="price">
+        @endif
+        <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
+         <br><br><br>
+        <input class="inputcantidad" type="number" name="quantity" id="quantity" min="1" max="{{$producto[0]->stock}}" required>
+        
+        <a href="#" id="increment"> <span class="mas"> + </span>   </a>
+        <a href="#" id="decrement">  <span class="menos"> - </span>  </a>
+        
+
+        <a href="#" title="añadir a la lista de deseos" class="btnlist"><i class="fa-solid fa-heart"></i></a>
+        
+        <button class="btncart" title="añadir al carrito">
+          <i class="fa fa-shopping-cart"></i> AÑADIR AL CARRITO
+        </button>
+         
+
+
+      </form>
+      
+      </div>
        
     </div>
 
@@ -366,6 +562,39 @@
     </div>
 
  </div>
+
+ <div class="midescripcion">
+ 
+  <h4 style="text-align: left;">Descripcion:</h4>
+  <br><br>
+  @foreach($descripcion as $desc)
+  @php  $cont=0;      @endphp
+  <div class="misdatos" style="display: flex; align-items: center;">
+    <div class="descripcion" style="display: flex; align-items: center;">
+        <h5>{{$desc->descripcion}}</h5> 
+    </div> 
+    <div class="especificaciones">
+    @foreach($especificacion as $esp)
+    @if($desc->descripcion == $esp->descripcion)
+    @php  $cont= $cont + 1 ;      @endphp
+    <div class="especificacion">
+        <h5>{{$esp->especificacion}}</h5> 
+    </div>
+    <div class="dato">
+        <h5>{{$esp->dato}}</h5> 
+    </div>
+     
+      <hr>
+    
+    @endif
+    @endforeach   
+    </div>
+    </div>
+    <hr>
+    @endforeach
+ </div>
+
+
 
   <div class="viewmasvendidos1">
 
@@ -406,6 +635,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
 <script>
+  $(document).ready(function() {
+  document.getElementById("quantity").value = 1;
+
   const image = document.querySelector('.productoimg');
 
 image.addEventListener('mouseover', () => {
@@ -425,6 +657,37 @@ image.addEventListener('mousemove', (e) => {
     var y = e.clientY - image.offsetTop - imgHeight/2; /* obtiene la posición Y del mouse */
     image.style.transformOrigin = x+"px "+y+"px"; /* establece la posición del mouse como el punto de origen para la transformación */
 });
+
+  });
+  
+
+const increment = document.getElementById("increment");
+const decrement = document.getElementById("decrement");
+const input = document.getElementById("quantity");
+
+increment.addEventListener("click", function() {
+  
+  if(parseInt(input.value)<parseInt(input.max)){
+  input.value = parseInt(input.value) + 1;}
+  if(parseInt(input.value)>parseInt(input.max)){
+  input.value = parseInt(input.max)  ;}
+});
+
+decrement.addEventListener("click", function() {
+  if(parseInt(input.value)>1){
+  input.value = parseInt(input.value) - 1;}
+  if(parseInt(input.value)>parseInt(input.max)){
+  input.value = parseInt(input.max)  ;}
+});
+
+input.addEventListener("change", function() {
+  
+  if(parseInt(input.value)>parseInt(input.max)){
+  input.value = parseInt(input.max)  ;}
+  
+});
+
+ 
 
 </script>
 @endsection

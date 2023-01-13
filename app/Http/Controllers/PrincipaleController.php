@@ -48,7 +48,7 @@ class PrincipaleController extends Controller
                 'p.name'
             )
             //->orderBy('p.stock','desc')
-            ->where('p.stock','>',0)
+            ->where('p.stock', '>', 0)
             ->get();
 
         //$unique_products = $productos->unique('p.id');
@@ -61,53 +61,79 @@ class PrincipaleController extends Controller
     public function detalleproducto($name)
     {
         $product = DB::table('productos as p')
-        ->join('detalle_subcategoria_productos as dsp','dsp.producto_id','=','p.id')
-        ->join('subcategorias as sc','dsp.subcategoria_id','=','sc.id')
-        ->join('categorias as c','sc.categoria_id','=','c.id')
-        ->select('p.id', 'p.name' ,'c.nombre as categoria','sc.nombre as subcategoria' )
-        ->where('p.name','=',$name)->first();
+            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
+            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
+            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
+            ->select('p.id', 'p.name', 'c.nombre as categoria', 'sc.nombre as subcategoria')
+            ->where('p.name', '=', $name)->first();
 
         $relacionados = DB::table('productos as p')
-            ->join('detalle_subcategoria_productos as dsp','dsp.producto_id','=','p.id')
-            ->join('subcategorias as sc','dsp.subcategoria_id','=','sc.id')
-            ->join('categorias as c','sc.categoria_id','=','c.id')
-            ->select('p.id as idproducto', 'p.name','p.price','p.image_path',
-            'p.marca','p.oferta','p.porcentajedescuento','p.descripcion','p.stock' )
-            ->distinct('p.id') 
-            ->where('p.stock','>',0)
-            ->where('sc.nombre','=',$product->subcategoria)
-            ->where('p.id','!=',$product->id)
-            ->take(5) 
+            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
+            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
+            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
+            ->select(
+                'p.id as idproducto',
+                'p.name',
+                'p.price',
+                'p.image_path',
+                'p.marca',
+                'p.oferta',
+                'p.porcentajedescuento',
+                'p.descripcion',
+                'p.stock'
+            )
+            ->distinct('p.id')
+            ->where('p.stock', '>', 0)
+            ->where('sc.nombre', '=', $product->subcategoria)
+            ->where('p.id', '!=', $product->id)
+            ->take(5)
             ->get();
-         
-        $producto = DB::table('productos as p')
-        ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
-        ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
-        ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-        ->select(
-            'p.id', 
-            'c.nombre as categoria',
-            'p.oferta',
-            'p.marca',
-            'p.price',
-            'p.porcentajedescuento',
-            'p.descripcion',
-            'sc.nombre as subcategoria',
-            'p.stock',
-            'p.image_path',
-            'p.name as producto'
-        )
-        //->orderBy('p.stock','desc')
-        ->where('p.name','=',$name)
-        ->get();
 
-    //return $relacionados;
-    return view('pagina/detalleproducto')->with(['producto' => $producto,'relacionados' => $relacionados,
-     //'imagenes' => $imagenes, 'descripcion' => $descripcion
-    ]);
-  
+        $producto = DB::table('productos as p')
+            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
+            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
+            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
+            ->select(
+                'p.id',
+                'c.nombre as categoria',
+                'p.oferta',
+                'p.marca',
+                'p.price',
+                'p.porcentajedescuento',
+                'p.descripcion',
+                'sc.nombre as subcategoria',
+                'p.stock',
+                'p.image_path',
+                'p.name as producto'
+            )
+            //->orderBy('p.stock','desc')
+            ->where('p.name', '=', $name)
+            ->get();
+
+        $descripcion = DB::table('productos as p')
+            ->join('detalle_especificacions as de', 'de.producto_id', '=', 'p.id')
+            ->join('especificacions as e', 'de.especificacion_id', '=', 'e.id')
+            ->join('descripcions as d', 'e.descripcion_id', '=', 'd.id')
+            ->select('d.descripcion')
+            ->where('p.id', '=', $product->id)
+            ->distinct('d.descripcion')
+            ->get();
+        $especificacion = DB::table('productos as p')
+            ->join('detalle_especificacions as de', 'de.producto_id', '=', 'p.id')
+            ->join('especificacions as e', 'de.especificacion_id', '=', 'e.id')
+            ->join('descripcions as d', 'e.descripcion_id', '=', 'd.id')
+            ->select('d.descripcion', 'e.especificacion', 'de.dato')
+            ->where('p.id', '=', $product->id)
+            ->get();
+
+
+        //return $descripcion;
+        return view('pagina/detalleproducto')->with([
+            'producto' => $producto, 'relacionados' => $relacionados,
+            'descripcion' => $descripcion, 'especificacion' => $especificacion
+        ]);
     }
- 
+
 
     public function index()
     {
@@ -182,12 +208,12 @@ class PrincipaleController extends Controller
         //buscamos el registro con el id enviado por la URL
         $principal = Principale::find($id);
         if ($principal) {
-             
+
             if ($principal->delete()) {
 
                 $respuesta =  3;
-                $path = public_path('principal/'.$principal->imagen);
-    
+                $path = public_path('principal/' . $principal->imagen);
+
                 if (File::exists($path)) {
                     File::delete($path);
                 }
