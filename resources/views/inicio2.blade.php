@@ -131,7 +131,7 @@
             <div class="agotado-label"> Agotado</div>
             @endif
             <img src="images/{{$pro->image_path}}" /> <br> <br>
-            <a href="#" class="productname">
+            <a href="/producto/{{$pro->name}}" class="productname">
                 <h5 class="nombreproducto"> {{ $pro->name }} </h5>
             </a>
 

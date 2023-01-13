@@ -25,7 +25,8 @@ class PrincipaleController extends Controller
             ->join('subcategorias as sc', 'sc.categoria_id', '=', 'c.id')
             ->join('detalle_subcategoria_productos as dsp', 'dsp.subcategoria_id', '=', 'sc.id')
             ->join('productos as p', 'dsp.producto_id', '=', 'p.id')
-            ->select('c.id as idcategoria', 'c.nombre as nombre')->distinct('nombre')
+            ->select('c.id as idcategoria', 'c.nombre as nombre')
+            ->distinct('nombre')
             ->get();
 
         $productos = DB::table('productos as p')
@@ -46,6 +47,8 @@ class PrincipaleController extends Controller
                 'p.image_path',
                 'p.name'
             )
+            //->orderBy('p.stock','desc')
+            ->where('p.stock','>',0)
             ->get();
 
         //$unique_products = $productos->unique('p.id');
@@ -53,6 +56,58 @@ class PrincipaleController extends Controller
 
         return view('inicio2')->with(['productos' => $productos, 'categorias' => $categorias, 'principal' => $principal]);
     }
+
+
+    public function detalleproducto($name)
+    {
+        $product = DB::table('productos as p')
+        ->join('detalle_subcategoria_productos as dsp','dsp.producto_id','=','p.id')
+        ->join('subcategorias as sc','dsp.subcategoria_id','=','sc.id')
+        ->join('categorias as c','sc.categoria_id','=','c.id')
+        ->select('p.id', 'p.name' ,'c.nombre as categoria','sc.nombre as subcategoria' )
+        ->where('p.name','=',$name)->first();
+
+        $relacionados = DB::table('productos as p')
+            ->join('detalle_subcategoria_productos as dsp','dsp.producto_id','=','p.id')
+            ->join('subcategorias as sc','dsp.subcategoria_id','=','sc.id')
+            ->join('categorias as c','sc.categoria_id','=','c.id')
+            ->select('p.id as idproducto', 'p.name','p.price','p.image_path',
+            'p.marca','p.oferta','p.porcentajedescuento','p.descripcion','p.stock' )
+            ->distinct('p.id') 
+            ->where('p.stock','>',0)
+            ->where('sc.nombre','=',$product->subcategoria)
+            ->where('p.id','!=',$product->id)
+            ->take(5) 
+            ->get();
+         
+        $producto = DB::table('productos as p')
+        ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
+        ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
+        ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
+        ->select(
+            'p.id', 
+            'c.nombre as categoria',
+            'p.oferta',
+            'p.marca',
+            'p.price',
+            'p.porcentajedescuento',
+            'p.descripcion',
+            'sc.nombre as subcategoria',
+            'p.stock',
+            'p.image_path',
+            'p.name as producto'
+        )
+        //->orderBy('p.stock','desc')
+        ->where('p.name','=',$name)
+        ->get();
+
+    //return $relacionados;
+    return view('pagina/detalleproducto')->with(['producto' => $producto,'relacionados' => $relacionados,
+     //'imagenes' => $imagenes, 'descripcion' => $descripcion
+    ]);
+  
+    }
+ 
 
     public function index()
     {

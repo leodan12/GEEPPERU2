@@ -196,7 +196,7 @@
     padding: 5px;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     text-transform: uppercase;
   }
 </style>
@@ -215,15 +215,17 @@
       <h4> LOS MÁS VENDIDOS</h4>
       <hr>
       @foreach($masvendidos as $pro)
-      <div class="colmasvendidos">
+      <div class="colmasvendidos" style="text-align: center;">
         @if($pro->oferta == 1 && $pro->stock > 0)
         <div class="discount-label1"> -{{$pro->porcentajedescuento}}%</div>
         @endif
         @if( $pro->stock == 0)
-        <div class="discount-label1"> Agotado</div>
+        <div class="discount-label1"> Sin Stock</div>
         @endif
         <img class="imagenmasvendido" src="../images/{{$pro->image_path}}" alt="Producto" width="100%" height="140px">
-        <h5 class="nombremasvendido">{{$pro->name}}</h5>
+        <a href="/producto/{{ $pro->name }}" class="productname ">
+                <h5 class="nombremasvendido"> {{ $pro->name }} </h5>
+        </a>
         @if($pro->oferta == 1 && $pro->stock > 0)
         <span id="oldprice2"> S/{{$pro->price}} </span>
         <span id="price2"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
@@ -244,14 +246,17 @@
       <div class="discount-label"> -{{$pro->porcentajedescuento}}%</div>
       @endif
       @if( $pro->stock == 0)
-      <div class="agotado-label"> Agotado</div>
+      <div class="agotado-label"> Sin Stock</div>
       @endif
-      <h5 class="nombreproducto">{{$pro->name}}</h5>
+      
+      <a href="/producto/{{ $pro->name }}" class="productname ">
+          <h5 class="nombreproducto">{{$pro->name}}</h5>
+      </a>
       @if($pro->oferta == 1 && $pro->stock > 0)
       <span id="oldprice"> S/{{$pro->price}} </span> &nbsp;
       <span id="price2"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
       @else
-      <span id="price"> S/{{$pro->price}} </span>
+      <span id="oldprice2"> S/{{$pro->price}} </span>
       @endif
       <form action="{{ route('cart.store') }}" method="POST">
         {{ csrf_field() }}

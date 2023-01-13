@@ -46,7 +46,7 @@
     @if($pro->idcategoria == $cat->idcategoria)
         <div class="product" id="product_{{$contc}}_{{$cont}}">
             <img src="images/{{$pro->image_path}}" /> <br> <br>
-            <a  href="#" class="productname"  >  <h5  class="nombreproducto"  > {{ $pro->name }}</h5>  </a>  
+            <a  href="/producto/{{$pro->name}}" class="productname"  >  <h5  class="nombreproducto"  > {{ $pro->name }}</h5>  </a>  
             <span id="price">   S/{{$pro->price}}  </span>
              
             <form action="{{ route('cart.store') }}" method="POST">
