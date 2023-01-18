@@ -1,45 +1,80 @@
 @extends('layout.base')
 @section('page-info')
 <style>
-    .imagencarrusel {
-        width: 100%;
-        height: 400px;
-    }
-
-    @media screen and (max-width: 991px) {
-        .imagencarrusel {
-            height: 300px;
-            width: 100%;
-        }
-    }
-
-    @media screen and (max-width: 767px) {
-        .imagencarrusel {
-            height: 250px;
-            width: 100%;
-        }
-    }
-
-    @media screen and (max-width: 480px) {
-        .imagencarrusel {
-            height: 200px;
-            width: 100%;
-        }
-    }
-
-    @media screen and (max-width: 430px) {
-        .imagencarrusel {
-            height: 180px;
-            width: 100%;
-        }
-    }
-
     @media screen and (max-width: 360px) {
         .imagencarrusel {
             height: 150px;
-            width: 100%;
+            width: 260px;
         }
     }
+    @media screen and (min-width: 360px) {
+        .imagencarrusel {
+            height: 160px;
+            width: 260px;
+        }
+    }
+    @media screen and (min-width: 460px) {
+        .imagencarrusel {
+            height: 180px;
+            width: 360px;
+        }
+    }
+    @media screen and (min-width: 560px) {
+        .imagencarrusel {
+            height: 200px;
+            width: 460px;
+        }
+    }
+    @media screen and (min-width: 660px) {
+        .imagencarrusel {
+            height: 220px;
+            width: 560px;
+        }
+    }
+    @media screen and (min-width: 760px) {
+        .imagencarrusel {
+            height: 240px;
+            width: 660px;
+        }
+    }
+    @media screen and (min-width: 960px) {
+        .imagencarrusel {
+            height: 290px;
+            width: 860px;
+        }
+    }
+    @media screen and (min-width: 1160px) {
+        .imagencarrusel {
+            height: 360px;
+            width: 1060px;
+        }
+    }
+    @media screen and (min-width: 1360px) {
+        .imagencarrusel {
+            height: 430px;
+            width: 1260px;
+        }
+    }
+
+    @media screen and (min-width: 1560px) {
+        .imagencarrusel {
+            height: 500px;
+            width: 1460px;
+        }
+    }
+    @media screen and (min-width: 1760px) {
+        .imagencarrusel {
+            height: 570px;
+            width: 1660px;
+        }
+    }
+
+    @media screen and (min-width: 1910px) {
+        .imagencarrusel {
+            height: 640px;
+            width: 1810px;
+        }
+    } 
 
     .discount-label {
         background-color: #ff3b19;
@@ -75,7 +110,7 @@
 @endsection
 @section('content')
 <div id="carouselExampleInterval" class="carousel slide " data-bs-ride="carousel">
-    <div class="carousel-indicators">
+    <div class="carousel-indicators ">
         @php $contp=0; @endphp
         @foreach($principal as $item)
         @if( $contp == 0)
@@ -86,16 +121,16 @@
         @php $contp++; @endphp
         @endforeach
     </div>
-    <div class="carousel-inner">
+    <div class="carousel-inner" style="text-align: center;">
         @php $contp2=0; @endphp
         @foreach($principal as $item)
         @if( $contp2 == 0)
         <div class="carousel-item active" data-bs-interval="4000">
-            <img src="principal/{{$item->imagen}}" class="d-block w-100 imagencarrusel" alt="...">
+            <img src="principal/{{$item->imagen}}" class="  imagencarrusel" alt="...">
         </div>
         @else
         <div class="carousel-item" data-bs-interval="4000">
-            <img src="principal/{{$item->imagen}}" class="d-block w-100 imagencarrusel" alt="...">
+            <img src="principal/{{$item->imagen}}" class="  imagencarrusel" alt="...">
         </div>
         @endif
         @php $contp2++; @endphp
