@@ -273,7 +273,7 @@
 
         <a href="#" title="añadir a la lista de deseos" class="btnlist"><i class="fa-solid fa-heart"></i></a>
         @if( $pro->stock == 0)
-        <a href="#" title="Ver Producto" class="btnver">
+        <a href="/producto/{{ $pro->name }}" title="Ver Producto" class="btnver">
           <p> &nbsp; <i class="fa-solid fa-eye"></i> VER PRODUCTO &nbsp;</p>
         </a>
         @else

@@ -572,20 +572,26 @@ input[type=number][name=quantity]::-webkit-outer-spin-button {
   <div class="misdatos" style="display: flex; align-items: center;">
     <div class="descripcion" style="display: flex; align-items: center;">
         <h5>{{$desc->descripcion}}</h5> 
-    </div> 
+    </div>  
+    @foreach($especificacion as $esp)
+    @if($desc->descripcion == $esp->descripcion)
+      @php $cont = $cont + 1; @endphp
+    @endif
+    @endforeach
+    @php  $cont2 = 0;      @endphp
     <div class="especificaciones">
     @foreach($especificacion as $esp)
     @if($desc->descripcion == $esp->descripcion)
-    @php  $cont= $cont + 1 ;      @endphp
+    @php  $cont2 = $cont2 + 1 ;      @endphp
     <div class="especificacion">
         <h5>{{$esp->especificacion}}</h5> 
     </div>
     <div class="dato">
         <h5>{{$esp->dato}}</h5> 
     </div>
-     
+    @if($cont2 < $cont) 
       <hr>
-    
+    @endif
     @endif
     @endforeach   
     </div>

@@ -195,7 +195,17 @@
     var Nimagenes = [];
     var currentc = [];
 
+    var numProd = 5;
+
     $(document).ready(function() {
+        var screenWidth = window.screen.width;
+        //var screenHeight = window.screen.height;
+        //console.log("Screen width: " + screenWidth);
+        //console.log("Screen height: " + screenHeight);
+
+        numProd = ~~(screenWidth / 240);
+        //numProd = numProd +1 ;
+        console.log("Screen Width: " + numProd);
 
         var categorias = @json($categorias);
         var productos = @json($productos);
@@ -209,7 +219,7 @@
                 Nimagenes[j] = $contc;
                 currentc[j] = 0;
             }
-            if ($contc <= 5) {
+            if ($contc <= numProd) {
                 //console.log($contc);
                 $('#right_arrow_' + categorias[j].idcategoria).css('display', 'none');
                 $('#left_arrow_' + categorias[j].idcategoria).css('display', 'none');
@@ -221,7 +231,7 @@
             if (currentc[$cont] > 0) {
                 currentc[$cont] = currentc[$cont] - 1;
             } else {
-                currentc[$cont] = Nimagenes[$cont] - 5;
+                currentc[$cont] = Nimagenes[$cont] - numProd;
             }
 
             $('.carrusel_' + $cont).animate({
@@ -235,7 +245,7 @@
         $('.right-arrow').on('click', function() {
             $cont = $(this).data("cont");
 
-            if (Nimagenes[$cont] > currentc[$cont] + 5) {
+            if (Nimagenes[$cont] > currentc[$cont] + numProd) {
                 currentc[$cont] = currentc[$cont] + 1;
             } else {
                 currentc[$cont] = 0;

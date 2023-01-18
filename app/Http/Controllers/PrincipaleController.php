@@ -25,7 +25,9 @@ class PrincipaleController extends Controller
             ->join('subcategorias as sc', 'sc.categoria_id', '=', 'c.id')
             ->join('detalle_subcategoria_productos as dsp', 'dsp.subcategoria_id', '=', 'sc.id')
             ->join('productos as p', 'dsp.producto_id', '=', 'p.id')
-            ->select('c.id as idcategoria', 'c.nombre as nombre')
+            ->select('c.id as idcategoria', 'c.nombre as nombre',DB::raw('count(p.id) as producto'))
+            ->groupBy('idcategoria','nombre')
+            ->orderBy('producto','desc')
             ->distinct('nombre')
             ->get();
 
@@ -53,6 +55,7 @@ class PrincipaleController extends Controller
 
         //$unique_products = $productos->unique('p.id');
 
+        //return $categorias;
 
         return view('inicio2')->with(['productos' => $productos, 'categorias' => $categorias, 'principal' => $principal]);
     }
