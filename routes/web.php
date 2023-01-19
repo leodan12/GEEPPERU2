@@ -69,6 +69,8 @@ Route::get('/generarcotizacionpdf/{id}', [PdfController::class, 'cotizacion']);/
 //mostrar los productos por categorias
 Route::get('/categoria-producto/{name}',[CategoriaController::class,'categoriaproducto']);
 Route::get('/subcategoria-producto/{name}',[CategoriaController::class,'subcategoriaproducto']);
+//Route::get('/busqueda/{name}',[PrincipaleController::class,'indexbusqueda']);
+
 
 //mostrar los productos por categorias
 Route::get('/principal/index', [PrincipaleController::class, 'index']);//Registrar

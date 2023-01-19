@@ -109,6 +109,12 @@
 </style>
 @endsection
 @section('content')
+
+
+
+@if($buscarpor == "")
+
+
 <div id="carouselExampleInterval" class="carousel slide " data-bs-ride="carousel">
     <div class="carousel-indicators ">
         @php $contp=0; @endphp
@@ -145,7 +151,6 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-
 
 @php $contc=0; @endphp
 @foreach($categorias as $cat)
@@ -216,6 +221,74 @@
 @php $contc=$contc+1; @endphp
 @endforeach
 
+@endif
+
+@if($buscarpor != "")
+
+<div class="titulo ">
+
+  <h3>Busqueda de Productos</h3>
+
+  <hr>
+</div>
+<div class="vista1">
+ 
+  <div class="viewproductos">
+
+    @foreach($productosbusqueda as $pro)
+    <div class=" product">
+      <img src="../images/{{$pro->image_path}}" alt="Producto" width="100%" height="140px">
+      @if($pro->oferta == 1 && $pro->stock > 0)
+      <div class="discount-label"> -{{$pro->porcentajedescuento}}%</div>
+      @endif
+      @if( $pro->stock == 0)
+      <div class="agotado-label"> Sin Stock</div>
+      @endif
+      <a href="/producto/{{ $pro->name }}" class="productname nombreproducto">
+                <h5 class="nombreproducto"> {{ $pro->name }} </h5>
+      </a>
+      @if($pro->oferta == 1 && $pro->stock > 0)
+      <span id="oldprice"> S/{{$pro->price}} </span> &nbsp;
+      <span id="price"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+      @else
+      <span id="price"> S/{{$pro->price}} </span>
+      @endif
+      <form action="{{ route('cart.store') }}" method="POST">
+        {{ csrf_field() }}
+        <input type="hidden" value="{{ $pro->id }}" id="id" name="id">
+        <input type="hidden" value="{{ $pro->name }}" id="name" name="name">
+        @if($pro->oferta == 1)
+        <input type="hidden" value="{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}}" id="price" name="price">
+        @endif
+        @if($pro->oferta == 0)
+        <input type="hidden" value="{{$pro->price}}" id="price" name="price">
+        @endif
+        <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
+        <input type="hidden" value="1" id="quantity" name="quantity">
+
+        <a href="#" title="añadir a la lista de deseos" class="btnlist"><i class="fa-solid fa-heart"></i></a>
+        @if( $pro->stock == 0)
+        <a href="/producto/{{ $pro->name }}" title="Ver Producto" class="btnver">
+          <p> &nbsp; <i class="fa-solid fa-eye"></i> VER PRODUCTO &nbsp;</p>
+        </a>
+        @else
+        <button class="btncart" title="añadir al carrito">
+          <i class="fa fa-shopping-cart"></i> AÑADIR AL CARRITO
+        </button>
+        @endif
+
+
+      </form>
+    </div>
+    @endforeach
+
+
+  </div>
+
+  
+</div>
+
+@endif
 
 @endsection
 
@@ -233,6 +306,7 @@
     var numProd = 5;
 
     $(document).ready(function() {
+ 
         var screenWidth = window.screen.width;
         //var screenHeight = window.screen.height;
         //console.log("Screen width: " + screenWidth);
@@ -240,10 +314,11 @@
 
         numProd = ~~(screenWidth / 240);
         //numProd = numProd +1 ;
-        console.log("Screen Width: " + numProd);
+       // console.log("Screen Width: " + numProd);
 
         var categorias = @json($categorias);
         var productos = @json($productos);
+ 
 
         for (var j = 0; j < categorias.length; j++) {
             $contc = 0;
@@ -294,6 +369,6 @@
         });
 
 
-    });
+    }); 
 </script>
 @endsection

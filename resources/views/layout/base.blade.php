@@ -31,6 +31,123 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	
 	@yield('page-info')
+
+    <style>
+        .inputbuscar{
+            height: 30px;
+            width: 200px;
+            border: 1px solid black;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btnbuscar{
+            background-color: white;
+            color: black;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 5px;  
+        }
+        .btnbuscar:hover{
+            background-color: #ff3936;
+            color: white;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 5px;  
+        }
+        .product {
+    display: inline-block;
+    width: 220px;
+    text-align: center;
+    border: 1px solid #CCCCCC;
+    height: 320px;
+    margin-right: 5px;
+    margin-top: 5px;
+    position: relative;
+
+  }
+
+  .product img {
+    margin-top: 10px;
+  }
+
+  .viewproductos {
+    text-align: center;
+    width: 75%;
+    right: 0px;
+    margin-left: 10px;
+    float: right;
+    display: block;
+    margin-bottom: 50px;
+  }
+
+  .vista1 {
+    width: 100%;
+  }
+
+  .titulo {
+    width: 100%;
+    text-align: center;
+  }
+
+    .viewproductos {
+      width: 100%;
+      float: left;
+    }
+  
+
+  .discount-label {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+  }
+
+  .discount-label1 {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-transform: uppercase;
+  }
+
+  #price2 {
+    color: #ed5e35;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  #oldprice2 {
+    color: #565656;
+    text-decoration: line-through;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  .agotado-label {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+  }
+    </style>
 	
     <title>GEEPPERU</title>
  
@@ -134,6 +251,15 @@
                 <ul id="cart">
                     @include('partials.cart-drop')
                 </ul>
+            </li>
+            
+            <li>
+            <form class="form-inline" method="GET">
+            &nbsp;   &nbsp;
+                <input name="buscarproducto" class="inputbuscar" type="search" placeholder="Buscar productos" aria-label="Search" value="{{$buscarpor}}" >
+
+                <button class="btnbuscar" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+            </form>
             </li>
 
 
@@ -309,6 +435,7 @@
     @yield('script')
     <script>
     $(document).ready(function() {
+        //para mostrar las categorias y subcategorias
         $.get('/listacategorias', function(data) { 
             for (var i = 0; i < data.length; i++) {
                 $("#optionmenucat").append('<li id="categorias"><a href="/categoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> <ul id="optionmenusubcat'+data[i].idcategoria+'"> </ul> </li>');
@@ -319,6 +446,21 @@
                 $('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
             }
         });
+
+    //para el buscador
+    //$('#btnbuscar').click(function() {
+    //    var inputbusqueda = $('[name="inputbusqueda"]').val();
+
+    //$.get('/busqueda/'+ inputbusqueda, function(data) { 
+    //        for (var i = 0; i < data.length; i++) {
+    //            console.log(data[i].nombre)
+    //            //$('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
+    //        }
+    //    });
+
+   // });
+
+
     });
     </script>
 </body>

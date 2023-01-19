@@ -6,14 +6,30 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Principale;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 
 class PrincipaleController extends Controller
 {
-    public function inicio()
-    {
+    const PAGINACION=5;
+    
+    //public function indexbusqueda(Request $request)
+    //{
 
+    //    $buscarpor = $request->get('buscarpor');
+
+    //    $productos = Producto::where('name','like',"%$buscarpor%");
+        
+        
+    //    return view('pagina/busqueda')->with([
+    //        'productos' => $productos, 'buscarpor' => $buscarpor 
+    //    ]);
+    //}
+
+    public function inicio(Request $request)
+    {
+        $buscarpor = $request->get('buscarproducto');
         // $principal = Principale::orderBy('id', 'desc')->get();
         $principal = DB::table('principales as p')
             ->select('p.id', 'p.nombre', 'p.imagen')
@@ -28,6 +44,7 @@ class PrincipaleController extends Controller
             ->select('c.id as idcategoria', 'c.nombre as nombre',DB::raw('count(p.id) as producto'))
             ->groupBy('idcategoria','nombre')
             ->orderBy('producto','desc')
+            //->where('p.name','like',"%$buscarpor%")
             ->distinct('nombre')
             ->get();
 
@@ -51,13 +68,25 @@ class PrincipaleController extends Controller
             )
             //->orderBy('p.stock','desc')
             ->where('p.stock', '>', 0)
+            ->where('p.name','like',"%$buscarpor%") 
+            ->get();
+
+            $productosbusqueda = DB::table('productos as p')
+            ->where('p.stock', '>', 0)
+            ->where('p.name','like',"%$buscarpor%")
+            ->distinct('p.name')
             ->get();
 
         //$unique_products = $productos->unique('p.id');
 
-        //return $categorias;
+        //return $productosbusqueda;
 
-        return view('inicio2')->with(['productos' => $productos, 'categorias' => $categorias, 'principal' => $principal]);
+        return view('inicio2')->with([
+            'productos' => $productos, 'categorias' => $categorias, 
+            'principal' => $principal ,'buscarpor' => $buscarpor,
+            'productosbusqueda' => $productosbusqueda
+        ]);
+    
     }
 
 
