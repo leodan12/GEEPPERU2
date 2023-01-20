@@ -32,7 +32,7 @@
 	
     <!--  chatbot  -->
     <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/c3276dc9775913859eafadf202459571"); h.appendChild(s); })(window, document);</script>
-
+    
 	@yield('page-info')
 
     <title>GEEPPERU</title>
@@ -205,7 +205,7 @@
         </a> 
     </div>
      <div id="whatsapp">    
-        <a href="https://wa.me/+51936108792?text=hola necesito información sobre ..."   target="_blank" > 
+        <a href="https://wa.me/+51936108792?text=hola quiero información acerca de ..."   target="_blank" > 
         <img src="{{ asset('imgs/whatsapplogo.png') }}" title="Whatsapp Geep Perú" alt="Chat en WhatsApp" />
         </a> 
     </div>
