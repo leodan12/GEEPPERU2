@@ -36,15 +36,24 @@ class CartController extends Controller
         return view('inicio2')->with(['productos' => $productos,'categorias' => $categorias]);
     }*/
     
-    public function cart()  {
+    public function cart(Request $request)  {
+
         $cartCollection = \Cart::getContent();
-        //dd($cartCollection);
-        return view('cart')->with(['cartCollection' => $cartCollection]);;
+
+        $buscarpor = $request->get('buscarproducto');
+         
+        return view('cart')->with(['cartCollection' => $cartCollection,
+        'buscarpor' => $buscarpor]);;
     }
+
+
+
     public function remove(Request $request){
         \Cart::remove($request->id);
         return redirect()->route('cart.index')->with('success_msg', 'Item is removed!');
     }
+
+
 
     public function add(Request$request){
         \Cart::add(array(

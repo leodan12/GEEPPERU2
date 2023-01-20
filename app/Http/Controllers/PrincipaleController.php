@@ -9,6 +9,7 @@ use App\Models\Principale;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use App\Models\Imagen;
 
 class PrincipaleController extends Controller
 {
@@ -98,7 +99,7 @@ class PrincipaleController extends Controller
             ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
             ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
             ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-            ->select('p.id', 'p.name', 'c.nombre as categoria', 'sc.nombre as subcategoria')
+            ->select('p.id','p.image_path', 'p.name', 'c.nombre as categoria', 'sc.nombre as subcategoria')
             ->where('p.name', '=', $name)->first();
 
         $relacionados = DB::table('productos as p')
@@ -120,6 +121,7 @@ class PrincipaleController extends Controller
             ->where('p.stock', '>', 0)
             ->where('sc.nombre', '=', $product->subcategoria)
             ->where('p.id', '!=', $product->id)
+            ->orderby('p.porcentajedescuento','desc')
             ->take(5)
             ->get();
 
@@ -166,13 +168,28 @@ class PrincipaleController extends Controller
             ->distinct('p.name')
             ->get();
 
+        $imagenes = DB::table('imagens as i') 
+            ->select('i.id','i.imagen','i.producto_id') 
+            ->where('i.producto_id','=',$product->id ) 
+            ->get();
+
+        $num_imagenes = $imagenes->count();
+
+        $imagen = new Imagen;
+        $imagen->id = $num_imagenes + 1;
+        $imagen->producto_id = $product->id;
+        $imagen->imagen =  $product->image_path; 
+        $imagenes->add($imagen);
+
+
+       // return $imagenes;
 
 
         //return $descripcion;
         return view('pagina/detalleproducto')->with([
             'producto' => $producto, 'relacionados' => $relacionados,
             'descripcion' => $descripcion, 'especificacion' => $especificacion, 'buscarpor' => $buscarpor,
-            'productosbusqueda' => $productosbusqueda
+            'productosbusqueda' => $productosbusqueda, 'imagenes' => $imagenes
         ]);
     }
 

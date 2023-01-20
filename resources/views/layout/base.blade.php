@@ -30,6 +30,9 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	
+    <!--  chatbot  -->
+    <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/c3276dc9775913859eafadf202459571"); h.appendChild(s); })(window, document);</script>
+
 	@yield('page-info')
 
     <title>GEEPPERU</title>
@@ -329,21 +332,7 @@
                 $('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
             }
         });
-
-    //para el buscador
-    //$('#btnbuscar').click(function() {
-    //    var inputbusqueda = $('[name="inputbusqueda"]').val();
-
-    //$.get('/busqueda/'+ inputbusqueda, function(data) { 
-    //        for (var i = 0; i < data.length; i++) {
-    //            console.log(data[i].nombre)
-    //            //$('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
-    //        }
-    //    });
-
-   // });
-
-
+ 
     });
     </script>
 </body>

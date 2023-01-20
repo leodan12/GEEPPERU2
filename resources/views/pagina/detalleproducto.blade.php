@@ -223,11 +223,22 @@
   .imagen {
     width: 49%;
     float: left;
-    border: 1px solid #CCCCCC;
+      
+  }
+  .imagen2 {  
+    overflow: hidden; /* oculta cualquier contenido que se extienda más allá del contenedor padre */
+    position: relative; /* permite posicionar los elementos hijos relativos al contenedor padre */
     margin-right: 2px;
     margin-top: 2px;
     text-align: left; 
     position: relative;
+    border: 1px solid #CCCCCC;
+  }
+  .imgsprod img{  
+    border: 1px solid #CCCCCC;
+    margin-right: 2px;
+    margin-top: 2px;
+    
   }
   .datos {
     width: 49%;
@@ -242,8 +253,7 @@
     font-weight: bold;
   }
   .imagen {
-  overflow: hidden; /* oculta cualquier contenido que se extienda más allá del contenedor padre */
-  position: relative; /* permite posicionar los elementos hijos relativos al contenedor padre */
+ 
 }
 
  
@@ -523,15 +533,30 @@ input[type=number][name=quantity]::-webkit-outer-spin-button {
   #price21 {
     color: #ed5e35;
     font-weight: bold;
-    margin-top: 10px;
-    font-size: 12px;
+    margin-top: 10px; 
+    font-size: 14px; 
+    font-weight: bold;
   }
 
   #oldprice21 {
     color: #565656;
     text-decoration: line-through;
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 14px;  
+  }
+  #price31 {
+    color: #ed5e35;
+    font-weight: bold;
+    margin-top: 10px; 
+    font-size: 12px; 
+    font-weight: bold;
+  }
+
+  #oldprice31 {
+    color: #565656;
+    text-decoration: line-through;
+    margin-top: 10px;
+    font-size: 12px;  
   }
 
   .agotado-label2 {
@@ -645,30 +670,38 @@ margin-top: 5px;
                 <h5 class="nombremasvendido"> {{ $pro->name }} </h5>
         </a>
         @if($pro->oferta == 1 && $pro->stock > 0)
-        <span id="oldprice2">S/{{$pro->price}} </span>
-        <span id="price2"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+        <span id="oldprice31">S/{{$pro->price}} </span>
+        <span id="price31"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
         @else
-        <span id="price2"> S/{{$pro->price}} </span>
+        <span id="price31"> S/{{$pro->price}} </span>
         @endif
       </div>
       @endforeach
      
     </div>
-    </div>
+  </div>
+
 
  <div class="miproducto">
     <div class="imagen">
     
     <div class="imagen2">
-    <img class="productoimg" src="../images/{{$producto[0]->image_path}}" alt="{{$producto[0]->producto}}" width="100%" height="400px">
+    <img class="productoimg" id="productoimg" src="../images/{{$producto[0]->image_path}}" alt="{{$producto[0]->producto}}" width="100%" height="400px">
     @if($producto[0]->oferta == 1 && $producto[0]->stock > 0)
       <div class="discount-label"> -{{$producto[0]->porcentajedescuento}}%</div>
     @endif
       @if( $producto[0]->stock == 0)
       <div class="agotado-label"> Sin Stock</div>
       @endif
+      
     </div>
-       
+    <div class="imgsprod" id="imgsprod">
+      @foreach($imagenes as $img)
+      <a href="#" style="text-decoration: none; color: inherit;" onclick="mostrarimagen('{{$img->id}}', '{{$img->imagen}}')" data-imgid="{{$img->id}}" data-imgprod="{{$img->imagen}}" id="imgnro"> 
+      <img class="prodimg" id="prodimg{{$img->id}}" src="../images/{{$img->imagen}}" alt="{{$img->imagen}}" width="100px" height="100px">
+      </a>
+      @endforeach
+      </div>
     </div>
     <div class="datos">
     <div class="titulo ">
@@ -691,7 +724,7 @@ margin-top: 5px;
       <span class="disponible" >  PRECIO ANTES: &nbsp;</span>
       <span id="oldprice"> S/{{$producto[0]->price}} </span> &nbsp; <br>
       <span class="precioprod" >  PRECIO AHORA: &nbsp;</span>
-      <span id="price2"> S/{{number_format($producto[0]->price - (($producto[0]->price*$producto[0]->porcentajedescuento)/100), 2);}} </span>
+      <span id="price"> S/{{number_format($producto[0]->price - (($producto[0]->price*$producto[0]->porcentajedescuento)/100), 2);}} </span>
       @else
       <span class="precioprod" >  PRECIO: &nbsp;</span>
       <span id="price"> S/{{$producto[0]->price}} </span>
@@ -753,7 +786,7 @@ margin-top: 5px;
   @php  $cont=0;      @endphp
   <div class="misdatos" style="display: flex; align-items: center;">
     <div class="descripcion" style="display: flex; align-items: center;">
-        <h5>{{$desc->descripcion}}</h5> 
+        <h5>{{$desc->descripcion}}:</h5> 
     </div>  
     @foreach($especificacion as $esp)
     @if($desc->descripcion == $esp->descripcion)
@@ -892,6 +925,7 @@ margin-top: 5px;
 
 <script>
   $(document).ready(function() {
+ 
   document.getElementById("quantity").value = 1;
 
   const image = document.querySelector('.productoimg');
@@ -915,6 +949,12 @@ image.addEventListener('mousemove', (e) => {
 });
 
   });
+
+  function mostrarimagen(id,imagen)  {
+
+document.getElementById("productoimg").src ="../images/"+ imagen;
+
+}
   
 
 const increment = document.getElementById("increment");
