@@ -36,6 +36,40 @@
 	@yield('page-info')
 
     <title>GEEPPERU</title>
+    <style>
+        #whatsapp{
+            position:fixed;
+            bottom:30px;
+            left:10px; 
+            display: flex;
+        }
+        #whatsapp img{
+           width: 50px;
+           height: 50px;  
+        } 
+        #instagram{
+            position:fixed;
+            bottom:90px;
+            left:10px; 
+            display: flex;
+        }
+        #instagram img{
+           width: 50px;
+           height: 50px;  
+        } 
+        #facebook{
+            position:fixed;
+            bottom:150px;
+            left:10px; 
+            display: flex;
+        }
+        #facebook img{
+           width: 50px;
+           height: 50px;  
+        } 
+
+          
+    </style>
  
 </head>
 
@@ -160,6 +194,21 @@
         </div>
     </div>
     <br> <br>
+    <div id="facebook">    
+        <a href="https://www.facebook.com/geepperuoficial"   target="_blank" > 
+        <img src="{{ asset('imgs/facebook.png') }}" title="Facebook Geep Perú" alt="Chat en Facebook" />
+        </a> 
+    </div>
+    <div id="instagram" >    
+        <a href="https://www.instagram.com/geepperu.srl/"   target="_blank" > 
+        <img src="{{ asset('imgs/instagram.png') }}" title="Instagram Geep Perú" alt="Chat en Instagram" />
+        </a> 
+    </div>
+     <div id="whatsapp">    
+        <a href="https://wa.me/+51936108792?text=hola necesito información sobre ..."   target="_blank" > 
+        <img src="{{ asset('imgs/whatsapplogo.png') }}" title="Whatsapp Geep Perú" alt="Chat en WhatsApp" />
+        </a> 
+    </div>
     <!-- START FOOTER -->
     <div id="servicios">
         <br>
