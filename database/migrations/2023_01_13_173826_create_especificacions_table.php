@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cotizaciones', function (Blueprint $table) {
+        Schema::create('especificacions', function (Blueprint $table) {
             $table->id();
-            $table->string('fecha');
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('documento');
-            $table->double('descuento');
-            $table->double('costototal');
-            $table->string('estado');
-            $table->boolean('state');
+            $table->string('especificacion');
+            $table->foreignId('descripcion_id');
+            $table->foreign('descripcion_id')->references('id')->on('descripcions');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cotizaciones');
+        Schema::dropIfExists('especificacions');
     }
 };

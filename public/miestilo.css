@@ -293,8 +293,10 @@
         rgba(0, 0, 0, 0.452),
         rgba(253, 0, 0, 0.452)
     );
-    background: linear-gradient(rgba(0, 0, 0, 0.452), rgba(253, 0, 0, 0.452));
-    color: black;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.452), 
+        rgba(253, 0, 0, 0.452));
+        color: black;
 }
 #servicios p {
     font-size: 12px;

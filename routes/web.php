@@ -9,6 +9,7 @@ use App\Http\Controllers\PrincipaleController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CotizacionesController;
 use App\Http\Controllers\Admin\CategoryController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,6 +70,8 @@ Route::get('/generarcotizacionpdf/{id}', [PdfController::class, 'cotizacion']);/
 //mostrar los productos por categorias
 Route::get('/categoria-producto/{name}',[CategoriaController::class,'categoriaproducto']);
 Route::get('/subcategoria-producto/{name}',[CategoriaController::class,'subcategoriaproducto']);
+//Route::get('/busqueda/{name}',[PrincipaleController::class,'indexbusqueda']);
+
 
 //mostrar los productos por categorias
 Route::get('/principal/index', [PrincipaleController::class, 'index']);//Registrar
@@ -76,6 +79,12 @@ Route::get('/principal/show/{id}', [PrincipaleController::class, 'show']);//ver
 Route::get('/principal/create',[PrincipaleController::class,'create']);
 Route::post('/principal/store', [PrincipaleController::class, 'store']);//Registrar
 Route::get('/principal/{id}/delete', [PrincipaleController::class, 'destroy']);//Actualizar
+
+//mostrar el detalle de los productos 
+Route::get('/producto/{name}', [PrincipaleController::class, 'detalleproducto']);//Actualizar
+
+//----------------------------RUTAS DE LEANDRO ------------------------------
+
 
 
 Auth::routes();

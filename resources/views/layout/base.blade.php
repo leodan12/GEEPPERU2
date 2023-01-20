@@ -30,9 +30,46 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	
+    <!--  chatbot  -->
+    <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/c3276dc9775913859eafadf202459571"); h.appendChild(s); })(window, document);</script>
+
 	@yield('page-info')
-	
+
     <title>GEEPPERU</title>
+    <style>
+        #whatsapp{
+            position:fixed;
+            bottom:30px;
+            left:10px; 
+            display: flex;
+        }
+        #whatsapp img{
+           width: 50px;
+           height: 50px;  
+        } 
+        #instagram{
+            position:fixed;
+            bottom:90px;
+            left:10px; 
+            display: flex;
+        }
+        #instagram img{
+           width: 50px;
+           height: 50px;  
+        } 
+        #facebook{
+            position:fixed;
+            bottom:150px;
+            left:10px; 
+            display: flex;
+        }
+        #facebook img{
+           width: 50px;
+           height: 50px;  
+        } 
+
+          
+    </style>
  
 </head>
 
@@ -135,6 +172,15 @@
                     @include('partials.cart-drop')
                 </ul>
             </li>
+            
+            <li>
+            <form class="form-inline" method="GET">
+            &nbsp;   &nbsp;
+                <input name="buscarproducto" class="inputbuscar" type="search" placeholder="Buscar productos" aria-label="Search" value="{{$buscarpor}}" >
+
+                <button class="btnbuscar" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+            </form>
+            </li>
 
 
         </ul>
@@ -148,6 +194,21 @@
         </div>
     </div>
     <br> <br>
+    <div id="facebook">    
+        <a href="https://www.facebook.com/geepperuoficial"   target="_blank" > 
+        <img src="{{ asset('imgs/facebook.png') }}" title="Facebook Geep Perú" alt="Chat en Facebook" />
+        </a> 
+    </div>
+    <div id="instagram" >    
+        <a href="https://www.instagram.com/geepperu.srl/"   target="_blank" > 
+        <img src="{{ asset('imgs/instagram.png') }}" title="Instagram Geep Perú" alt="Chat en Instagram" />
+        </a> 
+    </div>
+     <div id="whatsapp">    
+        <a href="https://wa.me/+51936108792?text=hola necesito información sobre ..."   target="_blank" > 
+        <img src="{{ asset('imgs/whatsapplogo.png') }}" title="Whatsapp Geep Perú" alt="Chat en WhatsApp" />
+        </a> 
+    </div>
     <!-- START FOOTER -->
     <div id="servicios">
         <br>
@@ -309,6 +370,7 @@
     @yield('script')
     <script>
     $(document).ready(function() {
+        //para mostrar las categorias y subcategorias
         $.get('/listacategorias', function(data) { 
             for (var i = 0; i < data.length; i++) {
                 $("#optionmenucat").append('<li id="categorias"><a href="/categoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> <ul id="optionmenusubcat'+data[i].idcategoria+'"> </ul> </li>');
@@ -319,6 +381,7 @@
                 $('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
             }
         });
+ 
     });
     </script>
 </body>

@@ -21,6 +21,10 @@
                         <label for="nombre" class="required form-label"   >Nombres</label>
                         <input type="text" placeholder=" ingrese nombre" name="nombre" id="nombre" class="form-control" required>
                     </div>
+                    <div class="col-md-12 col-lg-12 mb-5">
+                        <label for="descripcion" class="required form-label"   >Descripcion</label>
+                        <input type="text" placeholder=" ingrese descripcion" name="descripcion" id="descripcion" class="form-control" required>
+                    </div>
 
                     <div class="col-md-6 col-lg-3 mb-5">
                         <label for="fecha" class="required form-label"   >Fecha</label>
