@@ -160,7 +160,7 @@
         table.search(e.target.value).draw();
     });
     var viewbtn = true;
-    var editbtn = true;
+    var editbtn = false;
     var deletetn = true;
 
      
