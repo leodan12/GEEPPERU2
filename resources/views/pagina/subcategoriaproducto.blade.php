@@ -408,10 +408,10 @@ margin-top: 5px;
                 <h5 class="nombremasvendido"> {{ $pro->name }} </h5>
         </a>
         @if($pro->oferta == 1 && $pro->stock > 0)
-        <span id="oldprice2"> S/{{$pro->price}} </span>
-        <span id="price2"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+        <span id="oldprice2"> S/.{{$pro->price}} </span>
+        <span id="price2"> S/.{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
         @else
-        <span id="price2"> S/{{$pro->price}} </span>
+        <span id="price2"> S/.{{$pro->price}} </span>
         @endif
       </div>
       @endforeach
@@ -434,10 +434,10 @@ margin-top: 5px;
           <h5 class="nombreproducto">{{$pro->name}}</h5>
       </a>
       @if($pro->oferta == 1 && $pro->stock > 0)
-      <span id="oldprice"> S/{{$pro->price}} </span> &nbsp;
-      <span id="price"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+      <span id="oldprice"> S/.{{$pro->price}} </span> &nbsp;
+      <span id="price"> S/.{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
       @else
-      <span id="price"> S/{{$pro->price}} </span>
+      <span id="price"> S/.{{$pro->price}} </span>
       @endif
       <form action="{{ route('cart.store') }}" method="POST">
         {{ csrf_field() }}
@@ -488,10 +488,10 @@ margin-top: 5px;
         <img class="imagenmasvendido1" src="../images/{{$pro->image_path}}" alt="Producto" width="100%" height="140px">
         <h5 class="nombremasvendido1">{{$pro->name}}</h5>
         @if($pro->oferta == 1  && $pro->stock > 0)
-        <span id="oldprice2"> S/{{$pro->price}} </span> &nbsp;
-        <span id="price2"> S/{{$pro->price - (($pro->price*$pro->porcentajedescuento)/100)}} </span>
+        <span id="oldprice2"> S/.{{$pro->price}} </span> &nbsp;
+        <span id="price2"> S/.{{$pro->price - (($pro->price*$pro->porcentajedescuento)/100)}} </span>
         @else
-        <span id="price2"> S/{{$pro->price}} </span>
+        <span id="price2"> S/.{{$pro->price}} </span>
         @endif
       </div>
       @endforeach
@@ -527,10 +527,10 @@ margin-top: 5px;
                 <h5 class="nombreproducto"> {{ $pro->name }} </h5>
       </a>
       @if($pro->oferta == 1 && $pro->stock > 0)
-      <span id="oldprice21"> S/{{$pro->price}} </span> &nbsp;
-      <span id="price21"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+      <span id="oldprice"> S/.{{$pro->price}} </span> &nbsp;
+      <span id="price"> S/.{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
       @else
-      <span id="price21"> S/{{$pro->price}} </span>
+      <span id="price"> S/.{{$pro->price}} </span>
       @endif
       <form action="{{ route('cart.store') }}" method="POST">
         {{ csrf_field() }}
