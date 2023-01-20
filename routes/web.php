@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PreguntasController;
+use App\Http\Controllers\PrincipaleController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CotizacionesController;
-use App\Http\Controllers\PdfController;
-use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\PrincipaleController;
+use App\Http\Controllers\Admin\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,7 +89,19 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('dashboard',[App\Http\Controllers\Admin\DashboardController::class, 'index']);
     
     // Category Routes
-    Route::get('category',[App\Http\Controllers\Admin\CategoryController::class,'index']);
-    Route::get('category/create',[App\Http\Controllers\Admin\CategoryController::class,'create']);
-    Route::post('category',[App\Http\Controllers\Admin\CategoryController::class,'store']);
+    Route::controller(App\Http\Controllers\Admin\CategoryController::class)->group(function () {
+        Route::get('/category', 'index');
+        Route::get('/category/create', 'create');
+        Route::post('/category', 'store');
+        Route::get('/category/{category}/edit','edit');
+        Route::put('/category/{category}','update');
+    });
+    
+    Route::controller(App\Http\Controllers\Admin\ProductController::class)->group(function () {
+        Route::get('/products', 'index');
+        Route::get('/products/create','create');
+        Route::post('/products','store');
+    });
+    
+    Route::get('/brands',App\Http\Livewire\Admin\Brand\Index::class);
 });
