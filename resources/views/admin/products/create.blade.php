@@ -40,11 +40,11 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label>{Nombre del Producto</label>
+                            <label>Nombre del Producto</label>
                             <input type="text" name="name" class="form-control" />
                         </div>
                         <div class="mb-3">
-                            <label>{Slug del Producto</label>
+                            <label>Slug del Producto</label>
                             <input type="text" name="slug" class="form-control" />
                         </div>
                         <div class="mb-3">
@@ -57,26 +57,26 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label>{Descripcion Corta (500 Palabras)</label>
+                            <label>Descripcion Corta (500 Palabras)</label>
                             <textarea name="small_description" class="form-control" rows="4"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label>{Descripcion</label>
+                            <label>Descripcion</label>
                             <textarea name="description" class="form-control" rows="4"></textarea>
                         </div>
 
                     </div>
                 <div class="tab-pane fade" id="seotag-tab-pane" role="tabpanel" aria-labelledby="seotag-tab" tabindex="0">
                     <div class="mb-3">
-                                <label>{Meta Title</label>
+                                <label>Meta Title</label>
                                 <input type="text" name="meta_title" class="form-control" />
                     </div>
                     <div class="mb-3">
-                                <label>{Meta Description</label>
+                                <label>Meta Description</label>
                                 <textarea name="meta_description" class="form-control" rows="4"></textarea>
                     </div>
                     <div class="mb-3">
-                                <label>{Meta Keyword</label>
+                                <label>Meta Keyword</label>
                                 <textarea name="meta_keyword" class="form-control" rows="4"></textarea>
                     </div>
                 </div>
