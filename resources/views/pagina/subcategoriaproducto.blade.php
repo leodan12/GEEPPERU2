@@ -200,8 +200,189 @@
     text-transform: uppercase;
   }
 </style>
+<style>
+        .inputbuscar{
+            height: 30px;
+            width: 200px;
+            border: 1px solid black;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btnbuscar{
+            background-color: white;
+            color: black;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 5px;  
+        }
+        .btnbuscar:hover{
+            background-color: #ff3936;
+            color: white;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 5px;  
+        }
+        .product2 {
+    display: inline-block;
+    width: 220px;
+    text-align: center;
+    border: 1px solid #CCCCCC;
+    height: 320px;
+    margin-right: 5px;
+    margin-top: 5px;
+    position: relative;
+
+  }
+
+  .product2 img {
+    margin-top: 10px;
+  }
+
+  .viewproductos2 {
+    text-align: center;
+    width: 75%;
+    right: 0px;
+    margin-left: 10px;
+    float: right;
+    display: block;
+    margin-bottom: 50px;
+  }
+
+  .vista2 {
+    width: 100%;
+  }
+
+  .titulo2 {
+    width: 100%;
+    text-align: center;
+  }
+
+    .viewproductos2 {
+      width: 100%;
+      float: left;
+    }
+  
+
+  .discount-label2 {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+  }
+
+   
+
+  #price21 {
+    color: #ed5e35;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  #oldprice21 {
+    color: #565656;
+    text-decoration: line-through;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  .agotado-label2 {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+  }
+  .productname2{
+   color:black;
+   text-decoration:none;
+}
+.productname2:hover{
+   color:red; 
+}
+ 
+
+.btnscartlist2 {
+    position: relative;
+}
+.btncart2 {
+    background-color: white;
+    position: absolute;
+   bottom: 20px;
+   left: 55px;
+   color: black;
+   border: none;
+   height: 30px;
+   border: 1px solid red;
+   border-radius: 10px;
+}
+.btncart2:hover {
+   color: white;
+   background-color: #ff3936;
+}
+.btnlist2 {
+   position: absolute;
+   bottom: 20px;
+   left: 20px;
+   color: black;
+   height: 30px;
+   width: 30px;
+   border: 1px solid red;
+   border-radius: 5px; 
+}
+
+.btnlist2:hover {
+   color: white; 
+   background-color: #ff3936;
+}
+.btnlist2 i {
+   position: absolute; 
+   left: 15%;
+   top: 15%;
+   font-size: 20px;
+ 
+}
+.btnver2 {
+    background-color: white;
+    position: absolute;
+   bottom: 20px;
+   left: 55px;
+   color: black;
+   border: none;
+   height: 30px;
+   border: 1px solid red;
+   border-radius: 10px;
+   text-decoration:none;
+   margin-left: 10px;
+   margin-right: 10px;
+   text-align: center; 
+}
+
+.btnver2 p{
+margin-top: 5px;
+}
+.btnver2:hover {
+   color: white;
+   background-color: #ff3936;
+} 
+    </style>
 @endsection
 @section('content')
+
+@if($buscarpor == "")
+
 <div class="titulo ">
 
   <h3>{{$productos[0]->subcategoria}}</h3>
@@ -319,6 +500,74 @@
 
 </div>
 
+@endif
+
+@if($buscarpor != "")
+
+<div class="titulo2">
+
+  <h3>Busqueda de Productos: {{$buscarpor}}</h3>
+
+  <hr>
+</div>
+<div class="vista2">
+ 
+  <div class="viewproductos2">
+
+    @foreach($productosbusqueda as $pro)
+    <div class="product2">
+      <img src="../images/{{$pro->image_path}}" alt="Producto" width="100%" height="140px">
+      @if($pro->oferta == 1 && $pro->stock > 0)
+      <div class="discount-label2"> -{{$pro->porcentajedescuento}}%</div>
+      @endif
+      @if( $pro->stock == 0)
+      <div class="agotado-label2"> Sin Stock</div>
+      @endif
+      <a href="/producto/{{ $pro->name }}" class="productname2 nombreproducto2">
+                <h5 class="nombreproducto"> {{ $pro->name }} </h5>
+      </a>
+      @if($pro->oferta == 1 && $pro->stock > 0)
+      <span id="oldprice21"> S/{{$pro->price}} </span> &nbsp;
+      <span id="price21"> S/{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}} </span>
+      @else
+      <span id="price21"> S/{{$pro->price}} </span>
+      @endif
+      <form action="{{ route('cart.store') }}" method="POST">
+        {{ csrf_field() }}
+        <input type="hidden" value="{{ $pro->id }}" id="id" name="id">
+        <input type="hidden" value="{{ $pro->name }}" id="name" name="name">
+        @if($pro->oferta == 1)
+        <input type="hidden" value="{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}}" id="price" name="price">
+        @endif
+        @if($pro->oferta == 0)
+        <input type="hidden" value="{{$pro->price}}" id="price" name="price">
+        @endif
+        <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
+        <input type="hidden" value="1" id="quantity" name="quantity">
+
+        <a href="#" title="añadir a la lista de deseos" class="btnlist"><i class="fa-solid fa-heart"></i></a>
+        @if( $pro->stock == 0)
+        <a href="/producto/{{ $pro->name }}" title="Ver Producto" class="btnver2">
+          <p> &nbsp; <i class="fa-solid fa-eye"></i> VER PRODUCTO &nbsp;</p>
+        </a>
+        @else
+        <button class="btncart2" title="añadir al carrito">
+          <i class="fa fa-shopping-cart"></i> AÑADIR AL CARRITO
+        </button>
+        @endif
+
+
+      </form>
+    </div>
+    @endforeach
+
+
+  </div>
+
+  
+</div>
+
+@endif
 
 
 @endsection

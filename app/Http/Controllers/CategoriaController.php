@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
-    public function categoriaproducto($namec){
+    public function categoriaproducto($namec, Request $request){
+
+        $buscarpor = $request->get('buscarproducto');
+
         $productos = DB::table('productos as p')
             ->join('detalle_subcategoria_productos as dsp','dsp.producto_id','=','p.id')
             ->join('subcategorias as sc','dsp.subcategoria_id','=','sc.id')
@@ -18,7 +21,7 @@ class CategoriaController extends Controller
             'p.marca','p.oferta','p.porcentajedescuento','p.descripcion','p.stock' )
             ->distinct('p.id')
             ->orderBy('p.stock','desc')
-            ->where('c.nombre','=',$namec)   
+            ->where('c.nombre','=',$namec)    
             ->get();
 
             $masvendidos = DB::table('productos as p')
@@ -37,13 +40,25 @@ class CategoriaController extends Controller
 
     $unique_productos = $productos->unique('idproducto');
 
+    $productosbusqueda = DB::table('productos as p')
+        ->where('p.stock', '>', 0)
+        ->where('p.name','like',"%$buscarpor%")
+        ->distinct('p.name')
+        ->get();
+
 
                 //return  $masvendidos ;
-    return view("pagina/categoriaproducto",['productos' => $unique_productos,'masvendidos' => $masvendidos]);
+    return view("pagina/categoriaproducto",['productos' => $unique_productos,
+    'masvendidos' => $masvendidos,  'buscarpor' => $buscarpor, 'productosbusqueda' => $productosbusqueda, 
+ 
+]);
         
 }
 
-public function subcategoriaproducto($name){
+public function subcategoriaproducto($name, Request $request){
+
+    $buscarpor = $request->get('buscarproducto');
+
     $productos = DB::table('productos as p')
         ->join('detalle_subcategoria_productos as dsp','dsp.producto_id','=','p.id')
         ->join('subcategorias as sc','dsp.subcategoria_id','=','sc.id')
@@ -68,13 +83,26 @@ public function subcategoriaproducto($name){
             ->where('p.stock','>',0)
             ->take(5) 
             ->get();
+
+            $productosbusqueda = DB::table('productos as p')
+            ->where('p.stock', '>', 0)
+            ->where('p.name','like',"%$buscarpor%")
+            ->distinct('p.name')
+            ->get();
+
+            
         //return  $productos ;
-        return view("pagina/subcategoriaproducto",['productos' => $productos ,'masvendidos' => $masvendidos]);
+        return view("pagina/subcategoriaproducto",[
+            'productos' => $productos ,'masvendidos' => $masvendidos,
+            'buscarpor' => $buscarpor, 'productosbusqueda' => $productosbusqueda
+        ]);
         
 }
 public function categorias()
     {
         //$categorias = Categoria::all();
+       
+        
         $categorias =DB::table('categorias as c')
         ->join('subcategorias as sc','sc.categoria_id','=','c.id')
         ->join('detalle_subcategoria_productos as dsp','dsp.subcategoria_id','=','sc.id')

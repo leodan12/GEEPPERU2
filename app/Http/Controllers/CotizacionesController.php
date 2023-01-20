@@ -12,13 +12,16 @@ use App\Models\Producto;
 
 class CotizacionesController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {
      //$ventas = venta::all();
      $cotizaciones = $this->listar();
+
+     $buscarpor = $request->get('buscarproducto');
       
     // return $cotizaciones;
-    return view("cotizacion/index",['cotizaciones'=>$cotizaciones ]) ;
+    return view("cotizacion/index",['cotizaciones'=>$cotizaciones ,
+    'buscarpor' => $buscarpor,]) ;
      
     }
     public function listar()
@@ -136,6 +139,7 @@ class CotizacionesController extends Controller
              'documento' => 'required|string',
              'descuento' => 'required',
              'costototal' => 'required',
+             'descripcion' => 'required',
              'estado' => 'required'
            
         ];
@@ -150,6 +154,7 @@ class CotizacionesController extends Controller
         //Llevanos el modelo con los datos del Request
         $cotizacion->fecha = $request->fecha;
         $cotizacion->nombre = $request->nombre;
+        $cotizacion->descripcion = $request->descripcion;
         $cotizacion->documento = $request->documento;
         $cotizacion->descuento = $request->descuento;
         $cotizacion->costototal = $request->costototal; 

@@ -18,10 +18,14 @@
                     @csrf
                     <div class="row">
                      
-                        <div class="col-sm-6 col-lg-4 mb-5">
+                        <div class="col-sm-12 col-lg-12 mb-5">
                             <label for="fecha" class="required form-label">Fecha</label>
                             <input type="text" placeholder=" ingrese fecha" name="fecha" id="fecha" class="form-control" required readonly value="{{$cotizacion->fecha}}">
                         </div>
+                        <div class="col-md-12 col-lg-12 mb-5">
+                        <label for="descripcion" class="required form-label"   >Descripcion</label>
+                        <input type="text" placeholder=" ingrese descripcion" name="descripcion" id="descripcion" class="form-control" required value="{{$cotizacion->descripcion}}">
+                    </div>
                         <div class="col-sm-6 col-lg-4 mb-5">
                             <label for="nombre" class="required form-label">Nombre</label>
                             <input type="text" placeholder=" ingrese nombre" name="nombre" id="nombre" class="form-control" required value="{{$cotizacion->nombre}}">

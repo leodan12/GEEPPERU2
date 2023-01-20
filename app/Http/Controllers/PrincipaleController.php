@@ -72,10 +72,10 @@ class PrincipaleController extends Controller
             ->get();
 
             $productosbusqueda = DB::table('productos as p')
-            ->where('p.stock', '>', 0)
-            ->where('p.name','like',"%$buscarpor%")
-            ->distinct('p.name')
-            ->get();
+                ->where('p.stock', '>', 0)
+                ->where('p.name','like',"%$buscarpor%")
+                ->distinct('p.name')
+                ->get();
 
         //$unique_products = $productos->unique('p.id');
 
@@ -90,8 +90,10 @@ class PrincipaleController extends Controller
     }
 
 
-    public function detalleproducto($name)
+    public function detalleproducto($name,Request $request)
     {
+        $buscarpor = $request->get('buscarproducto');
+
         $product = DB::table('productos as p')
             ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
             ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
@@ -158,11 +160,19 @@ class PrincipaleController extends Controller
             ->where('p.id', '=', $product->id)
             ->get();
 
+        $productosbusqueda = DB::table('productos as p')
+            ->where('p.stock', '>', 0)
+            ->where('p.name','like',"%$buscarpor%")
+            ->distinct('p.name')
+            ->get();
+
+
 
         //return $descripcion;
         return view('pagina/detalleproducto')->with([
             'producto' => $producto, 'relacionados' => $relacionados,
-            'descripcion' => $descripcion, 'especificacion' => $especificacion
+            'descripcion' => $descripcion, 'especificacion' => $especificacion, 'buscarpor' => $buscarpor,
+            'productosbusqueda' => $productosbusqueda
         ]);
     }
 

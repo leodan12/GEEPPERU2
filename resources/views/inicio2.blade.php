@@ -107,6 +107,124 @@
         text-transform: uppercase;
     }
 </style>
+
+<style>
+        .inputbuscar{
+            height: 30px;
+            width: 200px;
+            border: 1px solid black;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btnbuscar{
+            background-color: white;
+            color: black;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 5px;  
+        }
+        .btnbuscar:hover{
+            background-color: #ff3936;
+            color: white;
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 5px;  
+        }
+        .product {
+    display: inline-block;
+    width: 220px;
+    text-align: center;
+    border: 1px solid #CCCCCC;
+    height: 320px;
+    margin-right: 5px;
+    margin-top: 5px;
+    position: relative;
+
+  }
+
+  .product img {
+    margin-top: 10px;
+  }
+
+  .viewproductos {
+    text-align: center;
+    width: 75%;
+    right: 0px;
+    margin-left: 10px;
+    float: right;
+    display: block;
+    margin-bottom: 50px;
+  }
+
+  .vista1 {
+    width: 100%;
+  }
+
+  .titulo {
+    width: 100%;
+    text-align: center;
+  }
+
+    .viewproductos {
+      width: 100%;
+      float: left;
+    }
+  
+
+  .discount-label {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+  }
+
+  .discount-label1 {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-transform: uppercase;
+  }
+
+  #price2 {
+    color: #ed5e35;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  #oldprice2 {
+    color: #565656;
+    text-decoration: line-through;
+    margin-top: 10px;
+    font-size: 12px;
+  }
+
+  .agotado-label {
+    background-color: #ff3b19;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+  }
+    </style>
+	
 @endsection
 @section('content')
 
@@ -227,7 +345,7 @@
 
 <div class="titulo ">
 
-  <h3>Busqueda de Productos</h3>
+  <h3>Busqueda de Productos: {{$buscarpor}}</h3>
 
   <hr>
 </div>
