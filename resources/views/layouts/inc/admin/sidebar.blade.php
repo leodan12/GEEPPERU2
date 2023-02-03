@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/brands">
+            <a class="nav-link" href="/admin/category">
               <i class="mdi mdi-chart-pie menu-icon"></i>
               <span class="menu-title">CATEGORIAS</span>
             </a>
