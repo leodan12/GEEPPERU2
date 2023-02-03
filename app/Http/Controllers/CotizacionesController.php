@@ -37,11 +37,12 @@ class CotizacionesController extends Controller
       
     return $cotizaciones;
    }
-   public function create()
+   public function create(Request $request)
     { 
+        $buscarpor = $request->get('buscarproducto');
         $productos = Producto::all();
         
-        return view("cotizacion/create" ,['productos'=>$productos]);
+        return view("cotizacion/create" ,['productos'=>$productos,'buscarpor'=>$buscarpor]);
     }
 
     public function store(Request $request)

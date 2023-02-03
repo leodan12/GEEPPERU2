@@ -17,21 +17,25 @@ class PreguntasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $buscarpor = $request->get('buscarproducto');
         $preguntas = Preguntas::All();
         $respuestas = Respuestas::All();
 
-        return view('nosotros.preguntasfrecuentes', ['respuestas' => $respuestas, 'preguntas' => $preguntas]);
+        return view('nosotros.preguntasfrecuentes', ['respuestas' => $respuestas,
+         'preguntas' => $preguntas,'buscarpor' => $buscarpor
+        ]);
     }
 
-    public function lista()
+    public function lista(Request $request)
     {
+        $buscarpor = $request->get('buscarproducto');
         //$preguntas = pregunta::all();
         $preguntas = $this->listar();
 
         // return $preguntas;
-        return view("nosotros/pregunta/index", ['preguntas' => $preguntas]);
+        return view("nosotros/pregunta/index", ['preguntas' => $preguntas,'buscarpor' => $buscarpor]);
     }
 
     public function listar()
@@ -43,10 +47,11 @@ class PreguntasController extends Controller
         return $preguntas;
     }
 
-    public function create()
+    public function create(Request $request)
     { 
-
-        return view("nosotros/pregunta/create" );
+        $buscarpor = $request->get('buscarproducto');
+        //return view("nosotros/pregunta/create" );
+        return view("nosotros/pregunta/create", ['buscarpor' => $buscarpor]);
     }
 
     public function store(Request $request)
@@ -96,16 +101,17 @@ class PreguntasController extends Controller
 
    
 
-    public function edit($id)
+    public function edit($id ,Request $request)
     {
         $pregunta = Preguntas::find($id);
-        
+        $buscarpor = $request->get('buscarproducto');
         $respuestas = DB::table('preguntas as p')
         ->join('respuestas as r', 'r.pregunta_id', '=', 'p.id')
             ->select('p.id as idpregunta','r.id as idrespuesta', 'r.respuesta as respuesta')
             ->where('r.pregunta_id', '=', $id)->get();
       
-        return view('nosotros/pregunta/edit', ['pregunta' => $pregunta,  'respuestas' => $respuestas]);
+        return view('nosotros/pregunta/edit', ['pregunta' => $pregunta,  'respuestas' => $respuestas,
+        'buscarpor' => $buscarpor]);
     }
 
     public function update(Request $request, $id)

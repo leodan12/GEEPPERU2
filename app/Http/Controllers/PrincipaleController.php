@@ -194,22 +194,24 @@ class PrincipaleController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-
+        $buscarpor = $request->get('buscarproducto');
         $principales = DB::table('principales as p')
             ->select('p.id', 'p.nombre', 'p.imagen')
             ->orderBy('id', 'desc')
             ->get();
         //return  $principales;
-        return view("principal/index", ['principales' => $principales]);
+        return view("principal/index", ['principales' => $principales,'buscarpor' => $buscarpor]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $buscarpor = $request->get('buscarproducto');
 
-
-        return view("principal/create");
+        return view("principal/create", ['buscarpor' => $buscarpor]);
+   
+       
     }
 
     public function show($id)

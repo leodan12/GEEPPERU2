@@ -15,15 +15,15 @@ class ContactanosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
-        
+        $buscarpor = $request->get('buscarproducto');
         $consultas = DB::table('contactanos as c')
         ->select('c.id as idconsulta', 'c.nombres','c.apellidos','c.email',
         'c.telefono','c.asunto','c.servicio','c.comentario')
         ->where('c.estado','!=','RESUELTO') 
         ->get();
-        return view("nosotros/contacto/indexSR",['consultas' => $consultas]);
+        return view("nosotros/contacto/indexSR",['consultas' => $consultas,'buscarpor' => $buscarpor]);
     }
 
     /**
@@ -93,22 +93,45 @@ class ContactanosController extends Controller
      * @param  \App\Models\Contactanos  $contactanos
      * @return \Illuminate\Http\Response
      */
-    public function show(Contactanos $contactanos)
+    public function contactanos(Request $request)
     {
-        //
+        $buscarpor = $request->get('buscarproducto');
+        return view("nosotros/contacto/contactanos",['buscarpor' => $buscarpor]);
+    }
+    
+    public function nosotros(Request $request)
+    {
+        $buscarpor = $request->get('buscarproducto');
+        return view("nosotros/sobrenosotros",['buscarpor' => $buscarpor]);
+    }
+    public function trayectoria(Request $request)
+    {
+        $buscarpor = $request->get('buscarproducto');
+        return view("nosotros/nuestratrayectoria",['buscarpor' => $buscarpor]);
+    }
+    public function principios(Request $request)
+    {
+        $buscarpor = $request->get('buscarproducto');
+        return view("nosotros/principios",['buscarpor' => $buscarpor]);
     }
 
+    public function preguntasfrecuentes(Request $request)
+    {
+        $buscarpor = $request->get('buscarproducto');
+        return view("nosotros/preguntasfrecuentes",['buscarpor' => $buscarpor]);
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Contactanos  $contactanos
      * @return \Illuminate\Http\Response
      */
-    public function edit( $id)
+    public function edit( $id,Request $request)
     {
+        $buscarpor = $request->get('buscarproducto');
         $consulta = Contactanos::find($id);
 
-        return view("nosotros/contacto/edit",['consulta' => $consulta]);
+        return view("nosotros/contacto/edit",['consulta' => $consulta,'buscarpor' => $buscarpor]);
     }
 
     /**
@@ -120,6 +143,7 @@ class ContactanosController extends Controller
      */
     public function update(Request $request,  $id)
     {
+        $buscarpor = $request->get('buscarproducto');
           //Regla de validación
           $rules = [
             'nombres' => 'required',
@@ -153,11 +177,11 @@ class ContactanosController extends Controller
         if ($consulta->update()) {
 
             $respuesta =  2;
-            return redirect('/contactanos/index')->with('respuesta', $respuesta);
+            return redirect('/contactanos/index')->with('respuesta', $respuesta,'buscarpor', $buscarpor);
         } else {
 
             $respuesta = -2;
-            return redirect('/contactanos/index')->with('respuesta', $respuesta);
+            return redirect('/contactanos/index')->with('respuesta', $respuesta,'buscarpor', $buscarpor);
         }
     }
 

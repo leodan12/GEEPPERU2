@@ -31,12 +31,20 @@ Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 
-Route::view('/nosotros', 'nosotros.sobrenosotros');
-Route::view('/trayectoria', 'nosotros.nuestratrayectoria');
-Route::view('/principios', 'nosotros.principios');
-Route::view('/preguntasfrecuentes', 'nosotros.preguntasfrecuentes');
+//Route::view('/nosotros', 'nosotros.sobrenosotros');
+//Route::view('/trayectoria', 'nosotros.nuestratrayectoria');
+//Route::view('/principios', 'nosotros.principios');
+//Route::view('/preguntasfrecuentes', 'nosotros.preguntasfrecuentes');
+
 Route::get('/preguntasfrecuentes', [PreguntasController::class, 'index'])->name('preguntas.index');
-Route::view('/contactanos', 'nosotros.contacto.contactanos');
+//Route::view('/contactanos', 'nosotros.contacto.contactanos');
+
+Route::get('/contactanos', [ContactanosController::class, 'contactanos']);//Registrar
+Route::get('/nosotros', [ContactanosController::class, 'nosotros']);//Registrar
+Route::get('/trayectoria', [ContactanosController::class, 'trayectoria']);//Registrar
+Route::get('/principios', [ContactanosController::class, 'principios']);//Registrar
+Route::get('/preguntasfrecuentes', [ContactanosController::class, 'preguntasfrecuentes']);//Registrar
+
 
 //gestionar los preguntas
 Route::get('/pregunta/create',[PreguntasController::class,'create']);
