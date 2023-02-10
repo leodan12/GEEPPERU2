@@ -1,15 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PreguntasController;
 use App\Http\Controllers\PrincipaleController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CotizacionesController;
 use App\Http\Controllers\Admin\CategoryController;
-use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -125,4 +126,14 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     });
     
     Route::get('/brands',App\Http\Livewire\Admin\Brand\Index::class);
+
+    Route::controller(ColorController::class)->group(function () {
+        Route::get('/colors', 'index');
+        Route::get('/colors/create','create');
+        Route::post('/colors/create','store');
+        Route::get('/colors/{color}/edit','edit');
+        Route::put('/colors/{color_id}','update');
+        Route::get('/colors/{color_id}/delete','destroy');
+    });
+    
 });

@@ -26,6 +26,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/admin/colors">
+              <i class="mdi mdi-view-headline menu-icon"></i>
+              <span class="menu-title">COLORES</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/admin/category">
               <i class="mdi mdi-chart-pie menu-icon"></i>
               <span class="menu-title">CATEGORIAS</span>

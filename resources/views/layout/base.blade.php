@@ -95,7 +95,8 @@
                     Mi Cuenta▼
                 </a>
                 <ul>
-                    <li><a href="#">Ingresar</a></li>
+                    <li><a href="{{ route('login')}}">Ingresar</a></li>
+                    <li><a href="{{ route('register')}}">Registrarse</a></li>
                     <li><a href="#">Mi Cuenta</a></li>
                     <li><a href="#">Mi Carrito</a></li>
                     <li><a href="#">Pagar</a></li>
