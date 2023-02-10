@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\CategoryController;
 */
 
 Route::get('/', [PrincipaleController::class, 'inicio'])->name('inicio');
+Route::get('/buscarprod/{nombre}', [PrincipaleController::class, 'busquedaprod'])->name('busquedaprod');
 Route::get('/listacategorias', [CategoriaController::class, 'categorias'])->name('categorias');
 Route::get('/listasubcategorias', [CategoriaController::class, 'subcategorias'])->name('subcategorias');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');

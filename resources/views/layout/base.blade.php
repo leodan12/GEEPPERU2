@@ -67,6 +67,10 @@
            width: 50px;
            height: 50px;  
         } 
+        .resultados{
+           width: 50%;
+           align-items: center;
+        } 
 
           
     </style>
@@ -177,7 +181,7 @@
             <li>
             <form class="form-inline" method="GET">
             &nbsp;   &nbsp;
-                <input name="buscarproducto" class="inputbuscar" type="search" placeholder="Buscar productos" aria-label="Search" value="{{$buscarpor}}" >
+                <input name="buscarproducto" class="inputbuscar" id="inputbuscar" type="search" placeholder="Buscar productos" aria-label="Search" value="{{$buscarpor}}" >
 
                 <button class="btnbuscar" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
             </form>
@@ -191,6 +195,13 @@
 
     <div class="container-fluid">
         <div class="espacio"> 
+            <div class="resultados">
+            <div class="resultadosproductos">
+            <ul name="resultadosbusquedaprod" id="resultadosbusquedaprod"> 
+             
+            </ul>
+            </div>
+            </div>
         @yield('content')
         </div>
     </div>
@@ -382,6 +393,32 @@
                 $('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
             }
         });
+ 
+        $('#inputbuscar').on('keyup', function() {
+            var query = $(this).val();
+            if(query.length>=3){
+            document.getElementById('resultadosbusquedaprod').innerHTML = '';
+            console.log(query);
+            $.get('/buscarprod/'+query, function(data) { 
+                console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                var imagen = "images/"+data[i].image_path;
+                $('#resultadosbusquedaprod').append('<li id="prod" > <a href="/producto/'+data[i].name+'"> <img src="{{ asset('+imagen+') }}" >' 
+               
+                  +data[i].name+  
+                
+                '</li>');
+            }
+        });
+
+            }
+            
+        });
+
+      //$('#inputbuscar').on('keypress', function(event) {
+      //console.log(event.key);
+        //});
+
  
     });
     </script>

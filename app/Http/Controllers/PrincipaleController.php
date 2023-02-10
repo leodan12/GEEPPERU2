@@ -90,6 +90,48 @@ class PrincipaleController extends Controller
     
     }
 
+    public function busquedaprod($nombre)
+    { 
+        $productos = DB::table('productos as p')
+            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
+            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
+            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
+            ->select(
+                'p.id',
+                'sc.id as idsubcategoria ',
+                'sc.categoria_id as idcategoria',
+                'p.oferta',
+                'p.marca',
+                'p.price',
+                'p.porcentajedescuento',
+                'p.descripcion',
+                'dsp.subcategoria_id',
+                'p.stock',
+                'p.image_path',
+                'p.name'
+            )
+            //->orderBy('p.stock','desc')
+            ->where('p.stock', '>', 0)
+            ->take(3)
+            ->where('p.name','like',"%$nombre%") 
+            ->distinct('p.name')
+            ->get();
+
+            $productosbusqueda = DB::table('productos as p')
+                ->where('p.stock', '>', 0)
+                ->where('p.name','like',"%$nombre%")
+                ->distinct('p.name')
+                ->take(3)
+                ->get();
+
+        //$unique_products = $productos->unique('p.id');
+
+        //return $productosbusqueda;
+
+        return $productosbusqueda;
+    
+    }
+
 
     public function detalleproducto($name,Request $request)
     {
