@@ -110,6 +110,7 @@
 									<span class="menu-title">Gestionar Contactanos</span>
 								</a>
 							</div>
+							<hr>
 							<div class="menu-item">  
 								<a class="menu-link" href="{{url('cotizacion/index')}}">
 									<span class="menu-icon">
@@ -187,9 +188,7 @@
 								</a>
 							</div>
 						 
-							 	 
-							  
-							 
+							<hr> 	   
 							 <div class="menu-item">
 								<a class="menu-link" href="{{url('usuario/index')}}">
 									<span class="menu-icon">
