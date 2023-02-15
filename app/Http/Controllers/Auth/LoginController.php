@@ -30,11 +30,11 @@ class LoginController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
     protected function authenticated()
     {
-        if(Auth::user()->role_as == '1'){
-            return redirect('admin/dashboard')->with('message','Bienvenido a GEEPPERU');
+        if(Auth::user()->rol_id == '1'){
+            return redirect('/welcome')->with('message','Bienvenido a GEEPPERU');
         }
         else {
-            return redirect('/home')->with('status','Se ha Logueado');
+            return redirect('/micuenta')->with('status','Se ha Logueado');
         }
     }
     /**

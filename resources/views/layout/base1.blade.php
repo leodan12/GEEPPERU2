@@ -320,6 +320,28 @@
                 $('#optionmenusubcat'+data[i].categoria_id).append('<li id="subcategorias"><a href="/subcategoria-producto/'+data[i].nombre+'">'+data[i].nombre+'</a> </li>');
             }
         });
+
+        $('#inputbuscar').on('keyup', function() {
+            var query = $(this).val();
+            if(query.length>=3){
+            document.getElementById('resultadosbusquedaprod').innerHTML = '';
+            console.log(query);
+            $.get('/buscarprod/'+query, function(data) { 
+                console.log(data);
+                document.getElementById('resultadosbusquedaprod').innerHTML = '';
+            for (var i = 0; i < data.length; i++) {
+                var imagen = "images/"+data[i].image_path;
+                $('#resultadosbusquedaprod').append('<li id="prod" > <a href="/producto/'+data[i].name+'"> <img src="{{ asset('+imagen+') }}" >' 
+               
+                  +data[i].name+  
+                
+                '</li>');
+            }
+        });
+
+            }
+            
+        });
     });
     </script>
 </body>

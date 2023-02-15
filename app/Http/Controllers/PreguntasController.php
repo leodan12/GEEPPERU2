@@ -12,21 +12,22 @@ use Illuminate\Support\Facades\DB;
 
 class PreguntasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function __construct()
     {
-        $buscarpor = $request->get('buscarproducto');
-        $preguntas = Preguntas::All();
-        $respuestas = Respuestas::All();
-
-        return view('nosotros.preguntasfrecuentes', ['respuestas' => $respuestas,
-         'preguntas' => $preguntas,'buscarpor' => $buscarpor
-        ]);
+        $this->middleware('auth');
     }
+
+
+    public function listar()
+    {
+        //$preguntas = Preguntas::All();
+        $preguntas = DB::table('preguntas as p')
+            ->select('p.id as idpregunta', 'p.pregunta')->get();
+
+        return $preguntas;
+    }
+
+
 
     public function lista(Request $request)
     {
@@ -35,20 +36,11 @@ class PreguntasController extends Controller
         $preguntas = $this->listar();
 
         // return $preguntas;
-        return view("nosotros/pregunta/index", ['preguntas' => $preguntas,'buscarpor' => $buscarpor]);
-    }
-
-    public function listar()
-    {
-        //$preguntas = Preguntas::All();
-        $preguntas = DB::table('preguntas as p')
-        ->select('p.id as idpregunta', 'p.pregunta')->get();
-
-        return $preguntas;
+        return view("nosotros/pregunta/index", ['preguntas' => $preguntas, 'buscarpor' => $buscarpor]);
     }
 
     public function create(Request $request)
-    { 
+    {
         $buscarpor = $request->get('buscarproducto');
         //return view("nosotros/pregunta/create" );
         return view("nosotros/pregunta/create", ['buscarpor' => $buscarpor]);
@@ -71,13 +63,13 @@ class PreguntasController extends Controller
         $pregunta = new Preguntas;
         //Llevanos el modelo con los datos del Request
         $pregunta->pregunta = $request->pregunta;
-       
+
         //Guardamos
         if ($pregunta->save()) {
 
             $respuesta =  1;
             $respuestas = $request->Lrespuestas;
-           
+
 
             if ($respuestas !== null) {
                 for ($i = 0; $i < count($respuestas); $i++) {
@@ -86,7 +78,6 @@ class PreguntasController extends Controller
                     $respuestas1->respuesta = $respuestas[$i];
                     $respuestas1->pregunta_id = $pregunta->id;
                     $respuestas1->save();
-                    
                 }
             }
 
@@ -99,19 +90,21 @@ class PreguntasController extends Controller
     }
 
 
-   
 
-    public function edit($id ,Request $request)
+
+    public function edit($id, Request $request)
     {
         $pregunta = Preguntas::find($id);
         $buscarpor = $request->get('buscarproducto');
         $respuestas = DB::table('preguntas as p')
-        ->join('respuestas as r', 'r.pregunta_id', '=', 'p.id')
-            ->select('p.id as idpregunta','r.id as idrespuesta', 'r.respuesta as respuesta')
+            ->join('respuestas as r', 'r.pregunta_id', '=', 'p.id')
+            ->select('p.id as idpregunta', 'r.id as idrespuesta', 'r.respuesta as respuesta')
             ->where('r.pregunta_id', '=', $id)->get();
-      
-        return view('nosotros/pregunta/edit', ['pregunta' => $pregunta,  'respuestas' => $respuestas,
-        'buscarpor' => $buscarpor]);
+
+        return view('nosotros/pregunta/edit', [
+            'pregunta' => $pregunta,  'respuestas' => $respuestas,
+            'buscarpor' => $buscarpor
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -130,16 +123,16 @@ class PreguntasController extends Controller
         $pregunta = Preguntas::find($id);
 
         if ($pregunta) {
-           
+
             //Cambiamos el nombre del registro con el valor enviado por Request
             $pregunta->pregunta = $request->pregunta;
-          
+
             //Actualizamos y retornamos el registro con el nuevo valor
             if ($pregunta->update()) {
 
                 $respuesta =  2;
                 $respuestas = $request->Lrespuestas;
-                
+
 
                 if ($respuestas !== null) {
                     for ($i = 0; $i < count($respuestas); $i++) {
@@ -151,7 +144,7 @@ class PreguntasController extends Controller
                     }
                 }
 
-               
+
                 return redirect('pregunta/index')->with('respuesta', $respuesta);
             } else {
 
@@ -172,7 +165,7 @@ class PreguntasController extends Controller
         $pregunta = Preguntas::find($id);
         if ($pregunta) {
 
-            
+
             if ($pregunta->delete()) {
 
                 $respuesta =  3;
@@ -193,16 +186,13 @@ class PreguntasController extends Controller
     {
         //buscamos el registro con el id enviado por la URL
         $respuestas = Respuestas::find($id);
-         $dato = 0;
-       
-        if ($respuestas) {
-            if($respuestas->delete()){
-                $dato =1;
-              return $dato;  
-            }   
-            
-        }
-        
+        $dato = 0;
 
+        if ($respuestas) {
+            if ($respuestas->delete()) {
+                $dato = 1;
+                return $dato;
+            }
+        }
     }
 }

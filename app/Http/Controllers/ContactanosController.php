@@ -10,20 +10,28 @@ use Illuminate\Support\Facades\DB;
 
 class ContactanosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index( Request $request)
+    public function __construct()
+    {
+        $this->middleware('auth');
+    } 
+    
+    public function index(Request $request)
     {
         $buscarpor = $request->get('buscarproducto');
         $consultas = DB::table('contactanos as c')
-        ->select('c.id as idconsulta', 'c.nombres','c.apellidos','c.email',
-        'c.telefono','c.asunto','c.servicio','c.comentario')
-        ->where('c.estado','!=','RESUELTO') 
-        ->get();
-        return view("nosotros/contacto/indexSR",['consultas' => $consultas,'buscarpor' => $buscarpor]);
+            ->select(
+                'c.id as idconsulta',
+                'c.nombres',
+                'c.apellidos',
+                'c.email',
+                'c.telefono',
+                'c.asunto',
+                'c.servicio',
+                'c.comentario'
+            )
+            ->where('c.estado', '!=', 'RESUELTO')
+            ->get();
+        return view("nosotros/contacto/indexSR", ['consultas' => $consultas, 'buscarpor' => $buscarpor]);
     }
 
     /**
@@ -42,50 +50,7 @@ class ContactanosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //Regla de validación
-        $rules = [
-            'nombres' => 'required',
-            'apellidos' => 'required',
-            'email' => 'required',
-            'servicio' => 'required',
-            'asunto' => 'required',
-            'celular' => 'required',
-            'comentario' => 'required'
 
-        ];
-        //Usamos el Facade Validator para validar nuestra regla respecto a los datos recibidos en Request
-        $validator = Validator::make($request->all(), $rules);
-        //Si falla la validacion retornamos los errores
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-        //Instancia modelo Gender
-        $consulta = new Contactanos;
-        //Llevanos el modelo con los datos del Request
-        $consulta->nombres = $request->nombres;
-        $consulta->apellidos = $request->apellidos;
-        $consulta->email = $request->email;
-        $consulta->servicio = $request->servicio;
-        $consulta->asunto = $request->asunto;
-        $consulta->comentario = $request->comentario;
-        $consulta->telefono = $request->celular;
-        $consulta->estado = "POR RESOLVER";
-        //Guardamos
-        if ($consulta->save()) {
-
-            $respuesta =  6;
-          
-             
-
-            return redirect('contactanos')->with('respuesta', $respuesta);
-        } else {
-
-            $respuesta = -6;
-            return redirect('contactanos')->with('respuesta', $respuesta);
-        }
-    }
 
     /**
      * Display the specified resource.
@@ -93,45 +58,14 @@ class ContactanosController extends Controller
      * @param  \App\Models\Contactanos  $contactanos
      * @return \Illuminate\Http\Response
      */
-    public function contactanos(Request $request)
-    {
-        $buscarpor = $request->get('buscarproducto');
-        return view("nosotros/contacto/contactanos",['buscarpor' => $buscarpor]);
-    }
-    
-    public function nosotros(Request $request)
-    {
-        $buscarpor = $request->get('buscarproducto');
-        return view("nosotros/sobrenosotros",['buscarpor' => $buscarpor]);
-    }
-    public function trayectoria(Request $request)
-    {
-        $buscarpor = $request->get('buscarproducto');
-        return view("nosotros/nuestratrayectoria",['buscarpor' => $buscarpor]);
-    }
-    public function principios(Request $request)
-    {
-        $buscarpor = $request->get('buscarproducto');
-        return view("nosotros/principios",['buscarpor' => $buscarpor]);
-    }
 
-    public function preguntasfrecuentes(Request $request)
-    {
-        $buscarpor = $request->get('buscarproducto');
-        return view("nosotros/preguntasfrecuentes",['buscarpor' => $buscarpor]);
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Contactanos  $contactanos
-     * @return \Illuminate\Http\Response
-     */
-    public function edit( $id,Request $request)
+
+    public function edit($id, Request $request)
     {
         $buscarpor = $request->get('buscarproducto');
         $consulta = Contactanos::find($id);
 
-        return view("nosotros/contacto/edit",['consulta' => $consulta,'buscarpor' => $buscarpor]);
+        return view("nosotros/contacto/edit", ['consulta' => $consulta, 'buscarpor' => $buscarpor]);
     }
 
     /**
@@ -144,8 +78,8 @@ class ContactanosController extends Controller
     public function update(Request $request,  $id)
     {
         $buscarpor = $request->get('buscarproducto');
-          //Regla de validación
-          $rules = [
+        //Regla de validación
+        $rules = [
             'nombres' => 'required',
             'apellidos' => 'required',
             'email' => 'required',
@@ -177,11 +111,11 @@ class ContactanosController extends Controller
         if ($consulta->update()) {
 
             $respuesta =  2;
-            return redirect('/contactanos/index')->with('respuesta', $respuesta,'buscarpor', $buscarpor);
+            return redirect('/contactanos/index')->with('respuesta', $respuesta, 'buscarpor', $buscarpor);
         } else {
 
             $respuesta = -2;
-            return redirect('/contactanos/index')->with('respuesta', $respuesta,'buscarpor', $buscarpor);
+            return redirect('/contactanos/index')->with('respuesta', $respuesta, 'buscarpor', $buscarpor);
         }
     }
 
@@ -191,18 +125,17 @@ class ContactanosController extends Controller
      * @param  \App\Models\Contactanos  $contactanos
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
-          
+
         $consulta = Contactanos::find($id);
 
-        if($consulta->delete()){
+        if ($consulta->delete()) {
             $respuesta = 3;
-        }else{
-            $respuesta =-3;
+        } else {
+            $respuesta = -3;
         }
 
         return redirect('contactanos')->with('respuesta', $respuesta);
-
     }
 }

@@ -13,229 +13,12 @@ use App\Models\Imagen;
 
 class PrincipaleController extends Controller
 {
-    const PAGINACION=5;
-    
-    //public function indexbusqueda(Request $request)
-    //{
+    const PAGINACION = 5;
 
-    //    $buscarpor = $request->get('buscarpor');
-
-    //    $productos = Producto::where('name','like',"%$buscarpor%");
-        
-        
-    //    return view('pagina/busqueda')->with([
-    //        'productos' => $productos, 'buscarpor' => $buscarpor 
-    //    ]);
-    //}
-
-    public function inicio(Request $request)
+    public function __construct()
     {
-        $buscarpor = $request->get('buscarproducto');
-        // $principal = Principale::orderBy('id', 'desc')->get();
-        $principal = DB::table('principales as p')
-            ->select('p.id', 'p.nombre', 'p.imagen')
-            ->where('p.estado', '=', 1)
-            ->orderBy('id', 'desc')
-            ->get();
-
-        $categorias = DB::table('categorias as c')
-            ->join('subcategorias as sc', 'sc.categoria_id', '=', 'c.id')
-            ->join('detalle_subcategoria_productos as dsp', 'dsp.subcategoria_id', '=', 'sc.id')
-            ->join('productos as p', 'dsp.producto_id', '=', 'p.id')
-            ->select('c.id as idcategoria', 'c.nombre as nombre',DB::raw('count(p.id) as producto'))
-            ->groupBy('idcategoria','nombre')
-            ->orderBy('producto','desc')
-            //->where('p.name','like',"%$buscarpor%")
-            ->distinct('nombre')
-            ->get();
-
-        $productos = DB::table('productos as p')
-            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
-            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
-            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-            ->select(
-                'p.id',
-                'sc.id as idsubcategoria ',
-                'sc.categoria_id as idcategoria',
-                'p.oferta',
-                'p.marca',
-                'p.price',
-                'p.porcentajedescuento',
-                'p.descripcion',
-                'dsp.subcategoria_id',
-                'p.stock',
-                'p.image_path',
-                'p.name'
-            )
-            //->orderBy('p.stock','desc')
-            ->where('p.stock', '>', 0)
-            ->where('p.name','like',"%$buscarpor%") 
-            ->get();
-
-            $productosbusqueda = DB::table('productos as p')
-                ->where('p.stock', '>', 0)
-                ->where('p.name','like',"%$buscarpor%")
-                ->distinct('p.name')
-                ->get();
-
-        //$unique_products = $productos->unique('p.id');
-
-        //return $productosbusqueda;
-
-        return view('inicio2')->with([
-            'productos' => $productos, 'categorias' => $categorias, 
-            'principal' => $principal ,'buscarpor' => $buscarpor,
-            'productosbusqueda' => $productosbusqueda
-        ]);
-    
+        $this->middleware('auth');
     }
-
-    public function busquedaprod($nombre)
-    { 
-        $productos = DB::table('productos as p')
-            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
-            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
-            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-            ->select(
-                'p.id',
-                'sc.id as idsubcategoria ',
-                'sc.categoria_id as idcategoria',
-                'p.oferta',
-                'p.marca',
-                'p.price',
-                'p.porcentajedescuento',
-                'p.descripcion',
-                'dsp.subcategoria_id',
-                'p.stock',
-                'p.image_path',
-                'p.name'
-            )
-            //->orderBy('p.stock','desc')
-            ->where('p.stock', '>', 0)
-            ->take(3)
-            ->where('p.name','like',"%$nombre%") 
-            ->distinct('p.name')
-            ->get();
-
-            $productosbusqueda = DB::table('productos as p')
-                ->where('p.stock', '>', 0)
-                ->where('p.name','like',"%$nombre%")
-                ->distinct('p.name')
-                ->take(3)
-                ->get();
-
-        //$unique_products = $productos->unique('p.id');
-
-        //return $productosbusqueda;
-
-        return $productosbusqueda;
-    
-    }
-
-
-    public function detalleproducto($name,Request $request)
-    {
-        $buscarpor = $request->get('buscarproducto');
-
-        $product = DB::table('productos as p')
-            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
-            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
-            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-            ->select('p.id','p.image_path', 'p.name', 'c.nombre as categoria', 'sc.nombre as subcategoria')
-            ->where('p.name', '=', $name)->first();
-
-        $relacionados = DB::table('productos as p')
-            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
-            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
-            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-            ->select(
-                'p.id as idproducto',
-                'p.name',
-                'p.price',
-                'p.image_path',
-                'p.marca',
-                'p.oferta',
-                'p.porcentajedescuento',
-                'p.descripcion',
-                'p.stock'
-            )
-            ->distinct('p.id')
-            ->where('p.stock', '>', 0)
-            ->where('sc.nombre', '=', $product->subcategoria)
-            ->where('p.id', '!=', $product->id)
-            ->orderby('p.porcentajedescuento','desc')
-            ->take(5)
-            ->get();
-
-        $producto = DB::table('productos as p')
-            ->join('detalle_subcategoria_productos as dsp', 'dsp.producto_id', '=', 'p.id')
-            ->join('subcategorias as sc', 'dsp.subcategoria_id', '=', 'sc.id')
-            ->join('categorias as c', 'sc.categoria_id', '=', 'c.id')
-            ->select(
-                'p.id',
-                'c.nombre as categoria',
-                'p.oferta',
-                'p.marca',
-                'p.price',
-                'p.porcentajedescuento',
-                'p.descripcion',
-                'sc.nombre as subcategoria',
-                'p.stock',
-                'p.image_path',
-                'p.name as producto'
-            ) 
-            ->where('p.name', '=', $name)
-            ->get();
-
-        $descripcion = DB::table('productos as p')
-            ->join('detalle_especificacions as de', 'de.producto_id', '=', 'p.id')
-            ->join('especificacions as e', 'de.especificacion_id', '=', 'e.id')
-            ->join('descripcions as d', 'e.descripcion_id', '=', 'd.id')
-            ->select('d.descripcion')
-            ->where('p.id', '=', $product->id)
-            ->distinct('d.descripcion')
-            ->get();
-        $especificacion = DB::table('productos as p')
-            ->join('detalle_especificacions as de', 'de.producto_id', '=', 'p.id')
-            ->join('especificacions as e', 'de.especificacion_id', '=', 'e.id')
-            ->join('descripcions as d', 'e.descripcion_id', '=', 'd.id')
-            ->select('d.descripcion', 'e.especificacion', 'de.dato')
-            ->where('p.id', '=', $product->id)
-            ->get();
-
-        $productosbusqueda = DB::table('productos as p')
-            ->where('p.stock', '>', 0)
-            ->where('p.name','like',"%$buscarpor%")
-            ->distinct('p.name')
-            ->get();
-
-        $imagenes = DB::table('imagens as i') 
-            ->select('i.id','i.imagen','i.producto_id') 
-            ->where('i.producto_id','=',$product->id ) 
-            ->get();
-
-        $num_imagenes = $imagenes->count();
-
-        $imagen = new Imagen;
-        $imagen->id = $num_imagenes + 1;
-        $imagen->producto_id = $product->id;
-        $imagen->imagen =  $product->image_path; 
-        $imagenes->add($imagen);
-
-
-       // return $imagenes;
-
-
-        //return $descripcion;
-        return view('pagina/detalleproducto')->with([
-            'producto' => $producto, 'relacionados' => $relacionados,
-            'descripcion' => $descripcion, 'especificacion' => $especificacion,
-             'buscarpor' => $buscarpor,
-            'productosbusqueda' => $productosbusqueda,
-             'imagenes' => $imagenes
-        ]);
-    }
-
 
     public function index(Request $request)
     {
@@ -245,7 +28,7 @@ class PrincipaleController extends Controller
             ->orderBy('id', 'desc')
             ->get();
         //return  $principales;
-        return view("principal/index", ['principales' => $principales,'buscarpor' => $buscarpor]);
+        return view("principal/index", ['principales' => $principales, 'buscarpor' => $buscarpor]);
     }
 
     public function create(Request $request)
@@ -253,8 +36,6 @@ class PrincipaleController extends Controller
         $buscarpor = $request->get('buscarproducto');
 
         return view("principal/create", ['buscarpor' => $buscarpor]);
-   
-       
     }
 
     public function show($id)
@@ -299,7 +80,7 @@ class PrincipaleController extends Controller
                 $respuesta = -1;
                 return redirect('principal/index')->with('respuesta', $respuesta);
             }
-        } else { 
+        } else {
             $respuesta = -1;
             return redirect('principal/index')->with('respuesta', $respuesta);
         }

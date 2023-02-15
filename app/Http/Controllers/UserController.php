@@ -7,11 +7,23 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-   
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function micuenta(Request $request){
+        $buscarpor = $request->get('buscarproducto');
+        $user = Auth::user()->id;
+        $usuario = User::find($user);
+        return view("micuenta/detalle", [   'usuario' => $usuario,  'buscarpor' => $buscarpor  ]);
+    }
 
     public function index()
     {
@@ -97,7 +109,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $usuario = User::find($id);
-        return view('usuario/edit', ['usuario' => $usuario,'roles' => $roles]);
+        return view('usuario/edit', ['usuario' => $usuario, 'roles' => $roles]);
     }
 
     public function update(Request $request, $id)
@@ -121,7 +133,7 @@ class UserController extends Controller
             if ($user->email == $request->email) {
                 $respuesta = 'email_duplicado';
                 return redirect("usuario/$id/edit")->with('respuesta', $respuesta);
-            } else { 
+            } else {
 
                 //buscamos el género con el id enviado por la URL
                 $usuario = User::find($id);
@@ -133,8 +145,8 @@ class UserController extends Controller
                     $usuario->email = $request->email;
                     $usuario->rol_id = $request->rol_id;
                     $usuario->password = Hash::make($request->password);
-                    
-                    
+
+
 
                     //Actualizamos y retornamos el registro con el nuevo valor
 

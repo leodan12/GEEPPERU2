@@ -26,8 +26,8 @@ class UsersSeeder extends Seeder
             'estado' => 1,
           ]);
           DB::table('users')->insert([
-            'name' => 'LEANDRO VILLARROEL',
-            'email' => 'lvillarroel@gmail.com',
+            'name' => 'LEODAN MACHUCA',
+            'email' => 'mleodan9@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$vZkZ2HK8m6BBXPjntYhDp.4UdUIIX7D6j2qoAAL8J4kbI1MVATexS', // password
             'remember_token' => Str::random(10),

@@ -101,9 +101,16 @@
                 <ul>
                     <li><a href="{{ route('login')}}">Ingresar</a></li>
                     <li><a href="{{ route('register')}}">Registrarse</a></li>
-                    <li><a href="#">Mi Cuenta</a></li>
-                    <li><a href="#">Mi Carrito</a></li>
-                    <li><a href="#">Pagar</a></li>
+                    <li><a href="/micuenta">Mi Cuenta</a></li>
+                    <li><a href="/cart">Mi Carrito</a></li>
+                    <li><div class="menu-item px-5">
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+
+                        <button type="submit" style="background-color: red; border-radius:20px;  ">  Salir!   </button> 
+                    </form>
+
+                </div></li>
 
                 </ul>
             </li>
@@ -394,27 +401,7 @@
             }
         });
  
-        $('#inputbuscar').on('keyup', function() {
-            var query = $(this).val();
-            if(query.length>=3){
-            document.getElementById('resultadosbusquedaprod').innerHTML = '';
-            console.log(query);
-            $.get('/buscarprod/'+query, function(data) { 
-                console.log(data);
-                document.getElementById('resultadosbusquedaprod').innerHTML = '';
-            for (var i = 0; i < data.length; i++) {
-                var imagen = "images/"+data[i].image_path;
-                $('#resultadosbusquedaprod').append('<li id="prod" > <a href="/producto/'+data[i].name+'"> <img src="{{ asset('+imagen+') }}" >' 
-               
-                  +data[i].name+  
-                
-                '</li>');
-            }
-        });
-
-            }
-            
-        });
+       
 
       
     });

@@ -15,6 +15,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\DescripcionController;
 use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\Admin\CategoryController;
 /*
@@ -28,10 +29,10 @@ use App\Http\Controllers\Admin\CategoryController;
 |
 */
 
-Route::get('/', [PrincipaleController::class, 'inicio'])->name('inicio');
-Route::get('/buscarprod/{nombre}', [PrincipaleController::class, 'busquedaprod'])->name('busquedaprod');
-Route::get('/listacategorias', [CategoriaController::class, 'categorias'])->name('categorias');
-Route::get('/listasubcategorias', [CategoriaController::class, 'subcategorias'])->name('subcategorias');
+Route::get('/', [HomeController::class, 'inicio'])->name('inicio');
+Route::get('/buscarprod/{nombre}', [HomeController::class, 'busquedaprod'])->name('busquedaprod');
+Route::get('/listacategorias', [HomeController::class, 'categorias'])->name('categorias');
+Route::get('/listasubcategorias', [HomeController::class, 'subcategorias'])->name('subcategorias');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');
 Route::post('/add', [CartController::class, 'add'])->name('cart.store');
 Route::post('/update', [CartController::class, 'update'])->name('cart.update');
@@ -39,19 +40,13 @@ Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 
-//Route::view('/nosotros', 'nosotros.sobrenosotros');
-//Route::view('/trayectoria', 'nosotros.nuestratrayectoria');
-//Route::view('/principios', 'nosotros.principios');
-//Route::view('/preguntasfrecuentes', 'nosotros.preguntasfrecuentes');
-
-Route::get('/preguntasfrecuentes', [PreguntasController::class, 'index'])->name('preguntas.index');
-//Route::view('/contactanos', 'nosotros.contacto.contactanos');
-
-Route::get('/contactanos', [ContactanosController::class, 'contactanos']);//Registrar
-Route::get('/nosotros', [ContactanosController::class, 'nosotros']);//Registrar
-Route::get('/trayectoria', [ContactanosController::class, 'trayectoria']);//Registrar
-Route::get('/principios', [ContactanosController::class, 'principios']);//Registrar
-Route::get('/preguntasfrecuentes', [ContactanosController::class, 'preguntasfrecuentes']);//Registrar
+ 
+Route::get('/preguntasfrecuentes', [HomeController::class, 'index'])->name('preguntas.index');
+ 
+Route::get('/contactanos', [HomeController::class, 'contactanos']);//Registrar
+Route::get('/nosotros', [HomeController::class, 'nosotros']);//Registrar
+Route::get('/trayectoria', [HomeController::class, 'trayectoria']);//Registrar
+Route::get('/principios', [HomeController::class, 'principios']);//Registrar
 
 
 //gestionar los preguntas
@@ -66,7 +61,7 @@ Route::get('/pregunta/{id}/delete', [PreguntasController::class, 'destroy']);//A
 Route::get('/deletedetallepregunta/{id}', [PreguntasController::class, 'destroydetallepregunta']); //eliminar detalle pregunta
 
 //gestionar los preguntas
-Route::post('/contactanos/store', [ContactanosController::class, 'store']);//Registrar
+Route::post('/contactanos/store', [HomeController::class, 'store']);//Registrar
 Route::get('/contactanos/index', [ContactanosController::class, 'index']);//Registrar
 Route::get('/contactanos/{id}/edit', [ContactanosController::class, 'edit']);//Actualizar
 Route::post('/contactanos/update/{id}', [ContactanosController::class, 'update']);//Registrar
@@ -86,8 +81,8 @@ Route::get('/deletedetallecotizacion/{id}', [CotizacionesController::class, 'des
 Route::get('/generarcotizacionpdf/{id}', [PdfController::class, 'cotizacion']);//ver
 
 //mostrar los productos por categorias
-Route::get('/categoria-producto/{name}',[CategoriaController::class,'categoriaproducto']);
-Route::get('/subcategoria-producto/{name}',[CategoriaController::class,'subcategoriaproducto']);
+Route::get('/categoria-producto/{name}',[HomeController::class,'categoriaproducto']);
+Route::get('/subcategoria-producto/{name}',[HomeController::class,'subcategoriaproducto']);
 //Route::get('/busqueda/{name}',[PrincipaleController::class,'indexbusqueda']);
 
 
@@ -99,7 +94,7 @@ Route::post('/principal/store', [PrincipaleController::class, 'store']);//Regist
 Route::get('/principal/{id}/delete', [PrincipaleController::class, 'destroy']);//Actualizar
 
 //mostrar el detalle de los productos 
-Route::get('/producto/{name}', [PrincipaleController::class, 'detalleproducto']);//Actualizar
+Route::get('/producto/{name}', [HomeController::class, 'detalleproducto']);//Actualizar
 
 //gestionar los categorias
 Route::get('/categoria/create',[CategoriaController::class,'create']);
@@ -164,20 +159,7 @@ Route::post('/imagenes/store', [ImagenController::class, 'store']);//Registrar
 Route::get('/imagenes/index',[ImagenController::class,'index']);
 Route::get('/imagenes/show/{id}', [ImagenController::class, 'show']);//ver 
 Route::get('/imagenes/{id}/delete', [ImagenController::class, 'destroy']);//Actualizar
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 //----------------------------RUTAS DE LEANDRO ------------------------------
 
@@ -185,42 +167,9 @@ Route::get('/imagenes/{id}/delete', [ImagenController::class, 'destroy']);//Actu
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/micuenta', [UserController::class, 'micuenta'])->name('micuenta');
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
-
-    Route::get('dashboard',[App\Http\Controllers\Admin\DashboardController::class, 'index']);
-    
-    // Category Routes
-    Route::controller(App\Http\Controllers\Admin\CategoryController::class)->group(function () {
-        Route::get('/category', 'index');
-        Route::get('/category/create', 'create');
-        Route::post('/category', 'store');
-        Route::get('/category/{category}/edit','edit');
-        Route::put('/category/{category}','update');
-    });
-    
-    Route::controller(App\Http\Controllers\Admin\ProductController::class)->group(function () {
-        Route::get('/products', 'index');
-        Route::get('/products/create','create');
-        Route::post('/products','store');
-        Route::get('/products/{product}/edit','edit');
-        Route::put('/products/{product}','update');
-        Route::get('/products/{product_id}/delete','destroy');
-        Route::get('product-image/{product_image_id}/delete','destroyImage');
-    });
-    
-    Route::get('/brands',App\Http\Livewire\Admin\Brand\Index::class);
-
-    Route::controller(ColorController::class)->group(function () {
-        Route::get('/colors', 'index');
-        Route::get('/colors/create','create');
-        Route::post('/colors/create','store');
-        Route::get('/colors/{color}/edit','edit');
-        Route::put('/colors/{color_id}','update');
-        Route::get('/colors/{color_id}/delete','destroy');
-    });
-    
-});
+ 

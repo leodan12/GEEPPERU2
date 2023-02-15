@@ -11,30 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
-   /* public function shop()
-    {
-        $productos = Producto::all();
-       //dd($products);
-        return view('inicio')->with(['productos' => $productos]);
-    }*/
-   /* public function inicio()
-    {
-        //$productos = Producto::all();
-        //dd($products);
-        //$categorias =Categoria::all();
-        $categorias =DB::table('categorias as c')
-        ->join('subcategorias as sc','sc.categoria_id','=','c.id')
-        ->join('productos as p','p.subcategoria_id','=','sc.id')
-        ->select('c.id as idcategoria','c.nombre as nombre')->distinct('nombre')
-        ->get();
-
-        $productos=DB::table('productos as p')
-        ->join('subcategorias as sc','p.subcategoria_id','=','sc.id')  
-        ->select(  'p.id','sc.id as idsubcategoria ','sc.categoria_id as idcategoria',
-        'p.slug','p.details','p.price','p.shipping_cost','p.description','p.subcategoria_id',
-        'p.brand_id','p.image_path','p.name' )->get() ;
-        return view('inicio2')->with(['productos' => $productos,'categorias' => $categorias]);
-    }*/
+    
     
     public function cart(Request $request)  {
 

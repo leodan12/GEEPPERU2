@@ -391,10 +391,9 @@
 													<!--end::Avatar-->
 													<!--begin::Username-->
 													<div class="d-flex flex-column">
-														<div class="fw-bolder d-flex align-items-center fs-5"> user
+														<div class="fw-bolder d-flex align-items-center fs-5"> <b> {{ Auth::user()->name }} </b> &nbsp;
 														</div>
-														<a href="#" class="fw-bold text-muted text-hover-primary fs-7">email </a>
-
+														 
 
 													</div>
 													<!--end::Username-->
@@ -412,8 +411,8 @@
 											<!--begin::Menu item-->
 											<div class="menu-item px-5">
 												 
-													<!--end::Svg Icon-->
-													<a href="/verperfil" class="menu-link px-5">Perfil</a>
+											<div class="fw-bolder d-flex align-items-center fs-6"> <b> {{ Auth::user()->email }} </b> &nbsp;
+														</div>
 											 
 												
 											</div>
