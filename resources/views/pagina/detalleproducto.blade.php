@@ -743,15 +743,15 @@ margin-top: 5px;
       <div class="inputcant">
         <form action="{{ route('cart.store') }}" method="POST">
         {{ csrf_field() }}
-        <input type="hidden" value="{{ $pro->idproducto }}" id="id" name="id">
-        <input type="hidden" value="{{ $pro->name }}" id="name" name="name">
-        @if($pro->oferta == 1)
-        <input type="hidden" value="{{number_format($pro->price - (($pro->price*$pro->porcentajedescuento)/100), 2);}}" id="price" name="price">
+        <input type="hidden" value="{{ $producto[0]->id }}" id="id" name="id">
+        <input type="hidden" value="{{ $producto[0]->producto }}" id="name" name="name">
+        @if($producto[0]->oferta == 1)
+        <input type="hidden" value="{{number_format($producto[0]->price - (($producto[0]->price*$producto[0]->porcentajedescuento)/100), 2);}}" id="price" name="price">
         @endif
-        @if($pro->oferta == 0)
-        <input type="hidden" value="{{$pro->price}}" id="price" name="price">
+        @if($producto[0]->oferta == 0)
+        <input type="hidden" value="{{$$producto[0]->price}}" id="price" name="price">
         @endif
-        <input type="hidden" value="{{ $pro->image_path }}" id="img" name="img">
+        <input type="hidden" value="{{ $producto[0]->image_path }}" id="img" name="img">
          <br><br><br>
         <input class="inputcantidad" type="number" name="quantity" id="quantity" min="1" max="{{$producto[0]->stock}}" required>
         

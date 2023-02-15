@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.basemant')
 
 @section('page-info')
  
@@ -192,7 +192,7 @@
 
             '</td><td><input  type="hidden" name="Lproducto[]" value="' + LDetalle[1] + '"required>' + LDetalle[3] +
             '</td><td ><input id="preciot' + indice + '"  type="hidden" name="Lpreciototal[]" value="' + LDetalle[2] + '"required>' + LDetalle[2] +
-            '</td><td><button type="button" class="btn btn-link btn-color-danger btn-sm delete" onclick="eliminarFila(' + indice + ')" data-id="0"><i class="bi bi-trash-fill"></i></button></td></tr>';
+            '</td><td><button type="button" class="btn btn-link btn-color-danger btn-sm delete" onclick="quitarFila(' + indice + ')" data-id="0"><i class="bi bi-trash-fill"></i></button></td></tr>';
 
         $("#detalle>tbody").append(filaDetalle);
 

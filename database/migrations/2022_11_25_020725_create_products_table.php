@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('oferta');
             $table->integer('porcentajedescuento');
             $table->string('image_path'); 
+            $table->boolean('estado');
             $table->timestamps();
 
         });

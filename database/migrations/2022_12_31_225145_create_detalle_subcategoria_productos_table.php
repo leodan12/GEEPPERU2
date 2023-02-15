@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('subcategoria_id');
             $table->foreignId('producto_id');
             $table->foreign('subcategoria_id')->references('id')->on('subcategorias');
-            $table->foreign('producto_id')->references('id')->on('productos');
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete("cascade")->onDelete("cascade");
             $table->timestamps();
         });
     }

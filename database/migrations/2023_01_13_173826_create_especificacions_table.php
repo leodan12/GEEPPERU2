@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('especificacion');
             $table->foreignId('descripcion_id');
-            $table->foreign('descripcion_id')->references('id')->on('descripcions');
+            $table->foreign('descripcion_id')->references('id')->on('descripcions')->onDelete("cascade");
             $table->timestamps();
         });
     }

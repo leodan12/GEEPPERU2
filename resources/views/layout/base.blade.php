@@ -401,6 +401,7 @@
             console.log(query);
             $.get('/buscarprod/'+query, function(data) { 
                 console.log(data);
+                document.getElementById('resultadosbusquedaprod').innerHTML = '';
             for (var i = 0; i < data.length; i++) {
                 var imagen = "images/"+data[i].image_path;
                 $('#resultadosbusquedaprod').append('<li id="prod" > <a href="/producto/'+data[i].name+'"> <img src="{{ asset('+imagen+') }}" >' 
@@ -415,11 +416,7 @@
             
         });
 
-      //$('#inputbuscar').on('keypress', function(event) {
-      //console.log(event.key);
-        //});
-
- 
+      
     });
     </script>
 </body>

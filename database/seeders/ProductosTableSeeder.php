@@ -23,7 +23,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 10,
             'stock' => 10,
-            'image_path' => 'laptop-hp-pavilon.jpg'
+            'image_path' => 'laptop-hp-pavilon.jpg',
+            'estado' => 1,
         ]);
 
         Producto::create([
@@ -34,7 +35,8 @@ class ProductosTableSeeder extends Seeder
             'porcentajedescuento' => 0,
             'oferta' => 0,
             'stock' => 20,
-            'image_path' => 'laptop-acer-ci511400.png'
+            'image_path' => 'laptop-acer-ci511400.png',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'MONITOR SAMSUNG LED CURVO AMD FREESYNC LC27R500FHLXPE 27',
@@ -44,7 +46,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 5,
             'stock' => 40,
-            'image_path' => 'monitor-27-samsung-lc27r500fhlxpe-fhd-vga-hdmi-curvo.jpg'
+            'image_path' => 'monitor-27-samsung-lc27r500fhlxpe-fhd-vga-hdmi-curvo.jpg',
+            'estado' => 1,
         ]);
 
         Producto::create([
@@ -55,7 +58,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 0,
             'porcentajedescuento' => 0,
             'stock' => 10,
-            'image_path' => 'All-in-One-HP-200.png'
+            'image_path' => 'All-in-One-HP-200.png',
+            'estado' => 1,
         ]);
 
         Producto::create([
@@ -66,7 +70,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 10,
             'stock' => 0,
-            'image_path' => 'IMMERSE-GH30-V2.jpg'
+            'image_path' => 'IMMERSE-GH30-V2.jpg',
+            'estado' => 1,
         ]);
 
         Producto::create([
@@ -77,7 +82,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 0,
             'porcentajedescuento' => 0,
             'stock' => 4,
-            'image_path' => '5081c5b5c1ec7ac5940e1de7370700c9-product.jpg'
+            'image_path' => '5081c5b5c1ec7ac5940e1de7370700c9-product.jpg',
+            'estado' => 1,
         ]);
 
         Producto::create([
@@ -88,7 +94,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 10,
             'stock' => 4,
-            'image_path' => 'CAM-TEROS-720P.png'
+            'image_path' => 'CAM-TEROS-720P.png',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'MONITOR LED TEROS 27″ TE-3178N IPS QHD 75HZ 2MS FLAT FHD',
@@ -98,7 +105,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 0,
             'porcentajedescuento' => 0,
             'stock' => 3,
-            'image_path' => 'mov27te3178n.jpg'
+            'image_path' => 'mov27te3178n.jpg',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'COMPUTADORA INTEL CORE I3 DECIMA 4GB DDR4 VIDEO GT710 2GB',
@@ -108,7 +116,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 0,
             'porcentajedescuento' => 0, 
             'stock' => 10,
-            'image_path' => 'compu-i3.jpg'
+            'image_path' => 'compu-i3.jpg',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'PC COMPLETA CORE i5 10th',
@@ -118,7 +127,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 10,
             'stock' => 5,
-            'image_path' => 'POST-nept-computer-PC-CORE-I3-10th-WEB-.png'
+            'image_path' => 'POST-nept-computer-PC-CORE-I3-10th-WEB-.png',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'COMPUTADORA HP 260 G4 CORE I3',
@@ -128,7 +138,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 5,
             'stock' => 2,
-            'image_path' => 'MINI-PC-HP-260-G4-CI3.jpg'
+            'image_path' => 'MINI-PC-HP-260-G4-CI3.jpg',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'AURICULAR ONIKUMA K1B',
@@ -138,7 +149,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 5,
             'stock' => 0,
-            'image_path' => 'D_NQ_NP_2X_819698-MLA45269545145_032021-V.webp'
+            'image_path' => 'D_NQ_NP_2X_819698-MLA45269545145_032021-V.webp',
+            'estado' => 1,
         ]); 
         Producto::create([
             'name' => 'COMBO TEROS GAMING TECLADO + MOUSE + PAD + AURICULAR Modelo 4050 USB',
@@ -148,7 +160,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 10,
             'stock' => 10,
-            'image_path' => 'combo-teros.fw_.png'
+            'image_path' => 'combo-teros.fw_.png',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'AURICULAR ONIKUMA K5 PRO',
@@ -158,7 +171,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 10,
             'stock' => 10,
-            'image_path' => 'HTB1bhGuah_rK1RkHFqDq6yJAFXaa.jpg'
+            'image_path' => 'HTB1bhGuah_rK1RkHFqDq6yJAFXaa.jpg',
+            'estado' => 1,
         ]);
         Producto::create([
             'name' => 'MOUSE GAMING TEROS',
@@ -168,7 +182,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 5,
             'stock' => 10,
-            'image_path' => 'teros-gamin.jpg'
+            'image_path' => 'teros-gamin.jpg',
+            'estado' => 1,
         ]); 
         Producto::create([
             'name' => 'MOUSE GAMER HALION RANGER HA-M506 RGB 6B',
@@ -178,7 +193,8 @@ class ProductosTableSeeder extends Seeder
             'oferta' => 1,
             'porcentajedescuento' => 20,
             'stock' => 10,
-            'image_path' => 'K506-RANGER-2.jpg'
+            'image_path' => 'K506-RANGER-2.jpg',
+            'estado' => 1,
         ]); 
 
     }

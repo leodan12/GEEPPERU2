@@ -21,6 +21,7 @@
   <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png')}}" />
     
     @livewireStyles
+    @yield('page-info')
 </head>
 <body>
 

@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.basemant')
  
 @section('page-info')
 
@@ -91,29 +91,34 @@
                         <form>
                             <div class="row">
                                 <div class="col-sm-4 col-lg-4 mb-5">
-                                    <label for="fecha" class="col-form-label">Fecha:</label>
-                                    <input type="text" class="form-control " id="verFecha" readonly>
+                                    <label for="Nombre" class="col-form-label">Nombre:</label>
+                                    <input type="text" class="form-control " id="verNombre" readonly>
                                 </div>
                                 <div class="col-sm-4 col-lg-4 mb-5">
-                                    <label for="nombres" class="col-form-label">Nombres:</label>
-                                    <input type="text" class="form-control" id="verNombres" readonly>
+                                    <label for="Marca" class="col-form-label">Marca:</label>
+                                    <input type="text" class="form-control" id="verMarca" readonly>
                                 </div>
                                 <div class="col-sm-4 col-lg-4 mb-5">
-                                    <label for="documento" class="col-form-label">Documento:</label>
-                                    <input type="text" class="form-control" id="verDocumento" readonly>
+                                    <label for="Precio" class="col-form-label">Precio:</label>
+                                    <input type="text" class="form-control" id="verPrecio" readonly>
                                 </div>
                                 <div class="col-sm-4 col-lg-4 mb-5">
-                                    <label for="descuento" class="col-form-label">Descuento:</label>
+                                    <label for="Stock" class="col-form-label">Stock:</label>
+                                    <input type="text" class="form-control" id="verStock" readonly>
+                                </div>
+                                <div class="col-sm-4 col-lg-4 mb-5">
+                                    <label for="Oferta" class="col-form-label">Oferta:</label>
+                                    <input type="text" class="form-control" id="verOferta" readonly>
+                                </div>
+                                <div class="col-sm-4 col-lg-4 mb-5">
+                                    <label for="PorcentajeDescuento" class="col-form-label">Porcentaje Descuento:</label>
                                     <input type="text" class="form-control" id="verDescuento" readonly>
                                 </div>
                                 <div class="col-sm-4 col-lg-4 mb-5">
-                                    <label for="costoCotizacion" class="col-form-label">Costo Cotizacion:</label>
-                                    <input type="text" class="form-control" id="verCostoCotizacion" readonly>
+                                    <label for="costoCotizacion" class="col-form-label">Imagen:</label>
+                                    <img src="" alt="imagen" id="verImagen"> 
                                 </div>
-                                <div class="col-sm-4 col-lg-4 mb-5">
-                                    <label for="estadoCotizacion" class="col-form-label">Estado Cotizacion :</label>
-                                    <input type="text" class="form-control" id="verEstadoCotizacion" readonly>
-                                </div>
+                                
                                  
                             </div>
                         </form>
@@ -164,18 +169,23 @@
 
         const button = event.relatedTarget
         const id = button.getAttribute('data-id')
-        var urlcotizacion = "{{ url('cotizacion/show') }}";
+        var urlcotizacion = "{{ url('productos/show') }}";
         $.get(urlcotizacion + '/' + id, function(data) {
             //console.log(data);
             const modalTitle = mimodal.querySelector('.modal-title')
             modalTitle.textContent = `Ver Registro ${id}`;
             idcotizacion = id;
-            document.getElementById("verFecha").value = data[0].fecha;
+            document.getElementById("verNombre").value = data[0][0].name;
             document.getElementById("verNombres").value = data[0].nombre;
             document.getElementById("verDocumento").value = data[0].documento;
             document.getElementById("verDescuento").value = data[0].descuento;
             document.getElementById("verCostoCotizacion").value = data[0].costototal;
             document.getElementById("verEstadoCotizacion").value = data[0].estado;
+
+            document.getElementById('verImagen').style.width = '100%';  
+            document.getElementById('verImagen').height = 250; 
+            document.getElementById("verNombre").value = data[0].nombre;
+            document.getElementById('verImagen').src = '/principal/'+data[0].imagen;
             
 
             var tabla = document.getElementById(detallecotizacion);
@@ -213,16 +223,18 @@
      
     listarOnTable(table, cotizaciones, 0, [], viewbtn, editbtn, deletetn, urlcotizaciones, false, []);
 
+    $("select[name=selectestado]").change(function(e){
+        table.search(e.target.value).draw();
+        });
+
+        
     $('#generarcotizacion').click(function() {
 
         //window.open( '/generarcotizacionpdf/' + idcotizacion );
         generarcotizacion(idcotizacion);
     });
 
-    $("select[name=selectestado]").change(function(e){
-        table.search(e.target.value).draw();
-        });
-
+   
    function generarcotizacion($id){
     if($id != -1){
     window.open( '/generarcotizacionpdf/' + $id );}

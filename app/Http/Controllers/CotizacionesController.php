@@ -214,6 +214,22 @@ class CotizacionesController extends Controller
             return redirect('cotizacion/index')->with('respuesta', $respuesta);
         }
     }
+    public function destroydetallecotizacion($id)
+    {
+        //buscamos el registro con el id enviado por la URL
+        $detallecotizacion = CotizacionesDetalle::find($id);
+         $dato = 0;
+       
+        if ($detallecotizacion) {
+            if($detallecotizacion->delete()){
+                $dato =1;
+              return $dato;  
+            }   
+            
+        }
+        
+
+    }
 
 
 

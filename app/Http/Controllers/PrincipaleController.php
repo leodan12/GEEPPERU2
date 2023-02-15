@@ -183,8 +183,7 @@ class PrincipaleController extends Controller
                 'p.stock',
                 'p.image_path',
                 'p.name as producto'
-            )
-            //->orderBy('p.stock','desc')
+            ) 
             ->where('p.name', '=', $name)
             ->get();
 
@@ -230,8 +229,10 @@ class PrincipaleController extends Controller
         //return $descripcion;
         return view('pagina/detalleproducto')->with([
             'producto' => $producto, 'relacionados' => $relacionados,
-            'descripcion' => $descripcion, 'especificacion' => $especificacion, 'buscarpor' => $buscarpor,
-            'productosbusqueda' => $productosbusqueda, 'imagenes' => $imagenes
+            'descripcion' => $descripcion, 'especificacion' => $especificacion,
+             'buscarpor' => $buscarpor,
+            'productosbusqueda' => $productosbusqueda,
+             'imagenes' => $imagenes
         ]);
     }
 
@@ -298,9 +299,7 @@ class PrincipaleController extends Controller
                 $respuesta = -1;
                 return redirect('principal/index')->with('respuesta', $respuesta);
             }
-        } else {
-
-
+        } else { 
             $respuesta = -1;
             return redirect('principal/index')->with('respuesta', $respuesta);
         }

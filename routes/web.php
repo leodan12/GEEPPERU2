@@ -10,6 +10,12 @@ use App\Http\Controllers\PrincipaleController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\ContactanosController;
 use App\Http\Controllers\CotizacionesController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\DescripcionController;
+use App\Http\Controllers\ImagenController;
+
 use App\Http\Controllers\Admin\CategoryController;
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +80,8 @@ Route::get('/cotizacion/{id}/edit', [CotizacionesController::class, 'edit']);//A
 Route::post('/cotizacion/update/{id}', [CotizacionesController::class, 'update']);//Registrar
 Route::get('/cotizacion/{id}/delete', [CotizacionesController::class, 'destroy']);//Actualizar
 Route::get('/cotizacion/show/{id}', [CotizacionesController::class, 'show']);//ver
+Route::get('/deletedetallecotizacion/{id}', [CotizacionesController::class, 'destroydetallecotizacion']); //eliminar detalle pregunta
+
 
 Route::get('/generarcotizacionpdf/{id}', [PdfController::class, 'cotizacion']);//ver
 
@@ -83,7 +91,7 @@ Route::get('/subcategoria-producto/{name}',[CategoriaController::class,'subcateg
 //Route::get('/busqueda/{name}',[PrincipaleController::class,'indexbusqueda']);
 
 
-//mostrar los productos por categorias
+//gestionar el banner principal
 Route::get('/principal/index', [PrincipaleController::class, 'index']);//Registrar
 Route::get('/principal/show/{id}', [PrincipaleController::class, 'show']);//ver
 Route::get('/principal/create',[PrincipaleController::class,'create']);
@@ -92,6 +100,84 @@ Route::get('/principal/{id}/delete', [PrincipaleController::class, 'destroy']);/
 
 //mostrar el detalle de los productos 
 Route::get('/producto/{name}', [PrincipaleController::class, 'detalleproducto']);//Actualizar
+
+//gestionar los categorias
+Route::get('/categoria/create',[CategoriaController::class,'create']);
+Route::post('/categoria/store', [CategoriaController::class, 'store']);//Registrar
+Route::get('/categoria/index',[CategoriaController::class,'index']);
+//Route::get('/categoria/show/{id}', [CategoriasController::class, 'show']);//ver
+Route::get('/categoria/{id}/edit', [CategoriaController::class, 'edit']);//Actualizar
+Route::post('/categoria/update/{id}', [CategoriaController::class, 'update']);//Registrar
+Route::get('/categoria/{id}/delete', [CategoriaController::class, 'destroy']);//Actualizar
+
+Route::get('/deletedetallecategoria/{id}', [CategoriaController::class, 'destroydetallecategoria']); //eliminar detalle pregunta
+
+
+
+//gestionar los roles
+Route::get('/rol/create',[RoleController::class,'create']);
+Route::post('/rol/store', [RoleController::class, 'store']);//Registrar
+Route::get('/rol/index',[RoleController::class,'index']);
+Route::get('/rol/show/{id}', [RoleController::class, 'show']);//ver
+Route::get('/rol/{id}/edit', [RoleController::class, 'edit']);//Actualizar
+Route::post('/rol/update/{id}', [RoleController::class, 'update']);//Registrar
+Route::get('/rol/{id}/delete', [RoleController::class, 'destroy']);//Actualizar
+
+//gestionar los USUARIOS
+Route::get('/usuario/create',[UserController::class,'create']);
+Route::post('/usuario/store', [UserController::class, 'store']);//Registrar
+Route::get('/usuario/index',[UserController::class,'index']);
+Route::get('/usuario/show/{id}', [UserController::class, 'show']);//ver
+Route::get('/usuario/{id}/edit', [UserController::class, 'edit']);//Actualizar
+Route::post('/usuario/update/{id}', [UserController::class, 'update']);//Registrar
+Route::get('/usuario/{id}/delete', [UserController::class, 'destroy']);//Actualizar
+
+
+// gestionar las descripciones
+Route::get('/descripcion/create',[DescripcionController::class,'create']);
+Route::post('/descripcion/store', [DescripcionController::class, 'store']);//Registrar
+Route::get('/descripcion/index',[DescripcionController::class,'index']);
+Route::get('/descripcion/show/{id}', [DescripcionController::class, 'show']);//ver
+Route::get('/descripcion/{id}/edit', [DescripcionController::class, 'edit']);//Actualizar
+Route::post('/descripcion/update/{id}', [DescripcionController::class, 'update']);//Registrar
+Route::get('/descripcion/{id}/delete', [DescripcionController::class, 'destroy']);//Actualizar
+
+Route::get('/deletedetalledescripcion/{id}', [DescripcionController::class, 'destroydetalledescripcion']); //eliminar detalle pregunta
+
+
+
+// gestionar los productos
+Route::get('/productos/create',[ProductoController::class,'create']);
+Route::post('/productos/store', [ProductoController::class, 'store']);//Registrar
+Route::get('/productos/index',[ProductoController::class,'index']);
+Route::get('/productos/show/{id}', [ProductoController::class, 'show']);//ver
+Route::get('/productos/{id}/edit', [ProductoController::class, 'edit']);//Actualizar
+Route::post('/productos/update/{id}', [ProductoController::class, 'update']);//Registrar
+Route::get('/productos/{id}/delete', [ProductoController::class, 'destroy']);//Actualizar
+
+Route::get('/deletedetallesubcategoria/{id}', [ProductoController::class, 'deletedetallesubcategoria']); //eliminar detalle pregunta
+Route::get('/deletedetalleespecificacion/{id}', [ProductoController::class, 'deletedetalleespecificacion']); //eliminar detalle pregunta
+
+// gestionar los imagenes
+Route::get('/imagenes/create',[ImagenController::class,'create']);
+Route::post('/imagenes/store', [ImagenController::class, 'store']);//Registrar
+Route::get('/imagenes/index',[ImagenController::class,'index']);
+Route::get('/imagenes/show/{id}', [ImagenController::class, 'show']);//ver 
+Route::get('/imagenes/{id}/delete', [ImagenController::class, 'destroy']);//Actualizar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //----------------------------RUTAS DE LEANDRO ------------------------------
 

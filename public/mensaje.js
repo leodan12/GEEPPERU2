@@ -55,4 +55,16 @@ function mensaje(resp) {
             icon: "error"
         });
     }
+    else if (resp == '-99') {
+        Swal.fire({
+            text: "error al validar los datos ingresados",
+            icon: "error"
+        });
+    }
+    else if (resp == '-100') {
+        Swal.fire({
+            text: "error al subir imagen ",
+            icon: "error"
+        });
+    }
 }

@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.basemant')
  
 @section('page-info')
 
@@ -138,11 +138,8 @@
             modalTitle.textContent = `Ver Registro ${id}`;
             
 
-            document.getElementById('verImagen').style.width = '100%'; 
-
-            document.getElementById('verImagen').height = 250;
-
-
+            document.getElementById('verImagen').style.width = '100%';  
+            document.getElementById('verImagen').height = 250; 
             document.getElementById("verNombre").value = data[0].nombre;
             document.getElementById('verImagen').src = '/principal/'+data[0].imagen;
             
