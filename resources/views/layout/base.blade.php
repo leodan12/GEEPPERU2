@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	
     <!--  chatbot  -->
-    <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/c3276dc9775913859eafadf202459571"); h.appendChild(s); })(window, document);</script>
+    <link href="https://trial.chatcompose.com/static/trial/all/global/export/css/main.5b1bd1fd.css" rel="stylesheet">    <script async type="text/javascript" src="https://trial.chatcompose.com/static/trial/all/global/export/js/main.a7059cb5.js?user=trial_leodan&lang=ES" user="trial_leodan" lang="ES"></script>  
     
 	@yield('page-info')
 
@@ -406,6 +406,7 @@
       
     });
     </script>
+    
 </body>
 
 
